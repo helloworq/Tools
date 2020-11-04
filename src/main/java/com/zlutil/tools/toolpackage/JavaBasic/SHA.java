@@ -3,7 +3,7 @@ package com.zlutil.tools.toolpackage.JavaBasic;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 
-public class ScriptInvoke {
+public class SHA {
     public static void main(String[] args) {
         String inputStr = "abcdefg";
         BigInteger sha = null;

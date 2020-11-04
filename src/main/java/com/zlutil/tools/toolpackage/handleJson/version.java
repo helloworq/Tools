@@ -10,37 +10,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
-//定义一个实体
-class UserBean {
-    private String id;
-    private String birthday;
+public class version {
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
-    }
-}
-
-public class son extends father {
-    public son(String fatherSaying) {
-        super(fatherSaying);
-    }
-
-    public void sonSay() {
-        System.out.println(fatherSaying);
-        System.out.println(fatherSay());
-    }
 
     public static void main(String[] args) {
         /*String text1=readFileContent("C:\\Users\\12733\\Desktop\\处理json数据\\处理后的流域面积.json");

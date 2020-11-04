@@ -1,4 +1,6 @@
-package com.zlutil.tools.toolpackage.JavaBasic.MyIO;
+package com.zlutil.tools.toolpackage.JavaBasic.NetTools;
+
+import com.zlutil.tools.toolpackage.JavaBasic.MyIO.RW_File;
 
 import java.io.IOException;
 import java.util.HashSet;
@@ -6,8 +8,10 @@ import java.util.Iterator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * 此类用来获取目标网页链接
+ */
 public class Download_links {
-    //此类用来获取目标网页链接
     public static String downloadLinks(String URL) {
         //通过目标链接获取网页源码
         String targetHTML = (getURLMessage.getMessage(URL));

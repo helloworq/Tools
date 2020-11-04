@@ -1,4 +1,4 @@
-package com.zlutil.tools.toolpackage.JavaBasic.MyIO;
+package com.zlutil.tools.toolpackage.JavaBasic.NetTools;
 
 public class DownLoad_My_Configs {
     //此类存储程序中所有需要的数据，例如本地存储地址以及相关的链接

@@ -1,9 +1,12 @@
-package com.zlutil.tools.toolpackage.JavaBasic.MyIO;
+package com.zlutil.tools.toolpackage.JavaBasic.NetTools;
 
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+/**
+ * 根据链接下载图片
+ */
 public class Download_pic {
     //链接url下载图片
     static void downloadPicture(String urlList, String path) {

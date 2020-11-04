@@ -2,8 +2,16 @@ package com.zlutil.tools.toolpackage.JavaBasic.MyIO;
 
 import java.io.*;
 
+/**
+ * 文件读写工具
+ */
 public class RW_File {
-    //根据File_Path获取目标文件，并且返回目标文件的字符串形式
+     /**
+     * 根据File_Path获取目标文件，并且返回目标文件的字符串形式
+     * @param File_Path
+     * @return
+     * @throws IOException
+     */
     public String read_txt(String File_Path) throws IOException {
         File file = new File(File_Path);
         FileReader fileReader = new FileReader(file);
@@ -18,6 +26,13 @@ public class RW_File {
         return str;
     }
 
+    /**
+     * 写入-flag为true则为追加写入
+     * @param File_Path
+     * @param str
+     * @param flag
+     * @throws IOException
+     */
     public void write_txt(String File_Path, String str, boolean flag) throws IOException {
         //String str = new re().read_txt("C:\\Users\\12733\\Desktop\\Thread\\Thread.txt");//读取的数据路径
         File file = new File(File_Path);

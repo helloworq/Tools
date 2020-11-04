@@ -16,12 +16,22 @@
 
     <properties>
         <java.version>1.8</java.version>
+        <swagger.version>1.7.0.RELEASE</swagger.version>
+        <fastjson.version>1.2.70</fastjson.version>
+        <thumbnailator.version>0.4.8</thumbnailator.version>
+        <spire.doc.free.version>3.9.0</spire.doc.free.version>
+        <httpclient.version>4.5.12</httpclient.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.spring4all</groupId>
+            <artifactId>swagger-spring-boot-starter</artifactId>
+            <version>${swagger.version}</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -31,30 +41,37 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.70</version>
+            <version>${fastjson.version}</version>
         </dependency>
         <dependency>
             <groupId>net.coobird</groupId>
             <artifactId>thumbnailator</artifactId>
-            <version>0.4.8</version>
+            <version>${thumbnailator.version}</version>
         </dependency>
         <dependency>
             <groupId>e-iceblue</groupId>
             <artifactId>spire.doc.free</artifactId>
-            <version>3.9.0</version>
+            <version>${spire.doc.free.version}</version>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>com.github.adedayo.intellij.sdk</groupId>
             <artifactId>forms_rt</artifactId>
             <version>142.1</version>
-        </dependency>
+        </dependency>-->
         <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
-            <version>4.5.12</version>
+            <version>${httpclient.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>

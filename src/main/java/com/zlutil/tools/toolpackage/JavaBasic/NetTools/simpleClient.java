@@ -1,9 +1,6 @@
-package com.zlutil.tools.toolpackage.HighConcurrence;/*
-package HighConcurrence;
+package com.zlutil.tools.toolpackage.JavaBasic.NetTools;
 
-import MyIO.DownLoad_My_Configs;
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -11,9 +8,9 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-
 import java.net.URI;
-@Deprecated
+
+
 public class simpleClient {
     public String getTranslationInfo(String param){
         String contents=null;
@@ -79,4 +76,3 @@ public class simpleClient {
         return contents;
     }
 }
-*/

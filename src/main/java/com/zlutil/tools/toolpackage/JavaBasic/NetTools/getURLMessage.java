@@ -1,4 +1,4 @@
-package com.zlutil.tools.toolpackage.JavaBasic.MyIO;
+package com.zlutil.tools.toolpackage.JavaBasic.NetTools;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -6,7 +6,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
-@Deprecated
+
 public class getURLMessage {
     public static void main(String[] args) {
         System.out.println(getMessage("https://music.migu.cn/v3/music/album/1135563295?origin=7"));

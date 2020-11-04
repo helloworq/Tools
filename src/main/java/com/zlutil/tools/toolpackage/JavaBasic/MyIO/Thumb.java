@@ -9,6 +9,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * 缩略图生成工具
+ */
 public class Thumb {
     public static void main(String[] args) throws IOException {
         //transformByThumb("C:\\Users\\12733\\Desktop\\Windows聚焦图片\\11.jpg","C:\\Users\\12733\\Desktop\\Windows聚焦图片\\22.jpg");
