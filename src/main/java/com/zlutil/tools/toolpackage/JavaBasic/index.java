@@ -2,6 +2,7 @@ package com.zlutil.tools.toolpackage.JavaBasic;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -121,14 +122,13 @@ public class index {
 
 */
 
-
         String originFilePath = "C:\\Users\\12733\\AppData\\Local\\Packages\\Microsoft.Windows.ContentDeliveryManager_cw5n1h2txyewy\\LocalState\\Assets";
         //小程序，从Windows聚焦的目录里提取所有文件到指定目录下，并且加上.jpg后缀
         String TargetfilePath = "C:\\Users\\12733\\Desktop\\Windows聚焦图片";
         File file = new File(originFilePath);
+        int order = 0;//完成序号
         //获取目录下所有文件的文件名
         String[] listOfFile = file.list();
-        int order = 0;//完成序号
         for (String s : listOfFile) {
             //renameTo方法会把源文件夹文件删除，故不采用
             String Targetpath = originFilePath + "\\" + s;
@@ -142,9 +142,13 @@ public class index {
             inputStreamWriteToOutputStream(oringDataInputStream, outputStream);
             System.out.println("已完成第   " + ++order + "   个文件");
         }
-
-
     }
+
+
+
+
+
+
 
     List<String> getListNameFomePath(String filePath) {
         List<String> list = new ArrayList<>();

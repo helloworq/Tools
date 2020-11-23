@@ -9,7 +9,7 @@ import org.apache.http.util.EntityUtils;
 
 public class getURLMessage {
     public static void main(String[] args) {
-        System.out.println(getMessage("https://music.migu.cn/v3/music/album/1135563295?origin=7"));
+        System.out.println(simpleClient.sendGet("http://patorjk.com/software/taag/fonts/Big.flf"));
     }
 
     //获取目标链接的html数据

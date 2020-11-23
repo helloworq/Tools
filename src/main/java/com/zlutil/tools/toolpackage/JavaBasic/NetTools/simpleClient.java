@@ -31,7 +31,7 @@ public class simpleClient {
         }
         return contents;
     }
-    public String sendPost(String URL){
+    public static String sendPost(String URL){
         String contents=null;
         try {
             HttpClient httpClient = HttpClients.createDefault();
@@ -44,7 +44,7 @@ public class simpleClient {
         }
         return contents;
     }
-    public String sendGet(String URL){
+    public static String sendGet(String URL){
         String contents=null;
         try {
             HttpClient httpClient = HttpClients.createDefault();
