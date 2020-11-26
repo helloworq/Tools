@@ -1,3 +1,4 @@
+/*
 package com.zlutil.tools.toolpackage.poi;
 
 
@@ -21,7 +22,9 @@ public class Runner {
 
     }
 
-    public static void batchDeleteHeader(/*比对用*/String filePath, String newPath, String pathName) {
+    public static void batchDeleteHeader(*/
+/*比对用*//*
+String filePath, String newPath, String pathName) {
         File file = new File(newPath);
         if (file.isDirectory()) {
             for (File fileObj : file.listFiles()) {
@@ -83,3 +86,4 @@ public class Runner {
         doc.dispose();
     }
 }
+*/
