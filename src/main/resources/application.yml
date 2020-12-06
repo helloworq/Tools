@@ -1,0 +1,24 @@
+server:
+  port: 8081
+spring:
+  data:
+    mongodb:
+      database: dist
+      host: 127.0.0.1
+      port: 27017
+      repositories:
+        enabled: true
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/testdb
+    password: ''
+    username: root
+  redis:
+    host: localhost
+    jedis:
+      pool:
+        max-idle: 8
+        max-wait: -1
+        min-idle: 0
+    port: 6379
+    timeout: 10000
