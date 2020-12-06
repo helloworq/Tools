@@ -38,7 +38,7 @@ public class MyIOUtil {
      * @return
      * @throws IOException
      */
-    public String creatRandomNameFile(String filepath,String fileSuffix) throws IOException {
+    public static String creatRandomNameFile(String filepath,String fileSuffix) throws IOException {
         //String path="C:\\Users\\12733\\Desktop\\Windows聚焦图片\\k\\";
         String pathid= UUID.randomUUID().toString().replace("-","");
         String path=filepath+pathid+"."+fileSuffix;
@@ -63,7 +63,7 @@ public class MyIOUtil {
      * @param output
      * @throws IOException
      */
-    public void inputStreamWriteToOutputStream(InputStream input, OutputStream output) throws IOException {
+    public static void inputStreamWriteToOutputStream(InputStream input, OutputStream output) throws IOException {
         int index;
         byte[] bytes = new byte[1024];
         while ((index = input.read(bytes)) != -1) {
@@ -79,7 +79,7 @@ public class MyIOUtil {
      * @param bytes
      * @return
      */
-    public String byteToMb(Long bytes){
+    public static String byteToMb(Long bytes){
         double dbytes=Double.valueOf(bytes);
         double rate=1d/1024d/1024d;
         double Mb=dbytes*rate;
@@ -92,7 +92,7 @@ public class MyIOUtil {
      * @param filePath
      * @return
      */
-    public String getFileSuffix(String filePath){
+    public static String getFileSuffix(String filePath){
         Integer dotIndex=filePath.lastIndexOf(".")+1;
         return filePath.substring(dotIndex);
     }
@@ -103,7 +103,7 @@ public class MyIOUtil {
      * @param filePath
      * @return
      */
-    public String getFilename(String filePath){
+    public static String getFilename(String filePath){
         String fileCompletePath=filePath.substring(filePath.lastIndexOf("/")+1);
         Integer dotIndex=fileCompletePath.lastIndexOf(".");
         return fileCompletePath.substring(0,dotIndex);

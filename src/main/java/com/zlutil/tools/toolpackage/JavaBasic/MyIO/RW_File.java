@@ -12,7 +12,7 @@ public class RW_File {
      * @return
      * @throws IOException
      */
-    public String read_txt(String File_Path) throws IOException {
+    public static String read_txt(String File_Path) throws IOException {
         File file = new File(File_Path);
         FileReader fileReader = new FileReader(file);
         BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -33,7 +33,7 @@ public class RW_File {
      * @param flag
      * @throws IOException
      */
-    public void write_txt(String File_Path, String str, boolean flag) throws IOException {
+    public static void write_txt(String File_Path, String str, boolean flag) throws IOException {
         //String str = new re().read_txt("C:\\Users\\12733\\Desktop\\Thread\\Thread.txt");//读取的数据路径
         File file = new File(File_Path);
         //如果未发现文件则创建文件

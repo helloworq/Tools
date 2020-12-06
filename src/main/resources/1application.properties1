@@ -1,0 +1,74 @@
+server.port=8081
+#数据库配置
+spring.datasource.url=jdbc:mysql://127.0.0.1:3306/testdb
+spring.datasource.username=root
+spring.datasource.password=
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+#spring data mongo
+spring.data.mongodb.database=dist
+spring.data.mongodb.host=127.0.0.1
+spring.data.mongodb.port=27017
+spring.data.mongodb.repositories.enabled=true
+#spring data redis
+spring.redis.host=localhost
+spring.redis.port=6379
+spring.redis.jedis.pool.max-idle=8
+spring.redis.jedis.pool.max-wait=-1
+spring.redis.jedis.pool.min-idle=0
+spring.redis.timeout=10000
+#dubbo配置
+dubbo.application.name=user-service-provider
+#注册中心地址
+dubbo.registry.address=127.0.0.1:2181
+#注解扫描地址
+dubbo.scan.base-packages=com.transform.service
+#注册中心协议
+dubbo.registry.protocol=zookeeper
+#协议名
+dubbo.protocol.name=dubbo
+#协议通信地址
+dubbo.protocol.port=20881
+#监控器协议
+dubbo.monitor.protocol=registry
+
+
+#spring配置
+spring:
+datasource:
+url: jdbc:oracle:thin:@127.0.0.1/ORCL
+username: DIST
+password: 12345678
+driver-class-name: oracle.jdbc.driver.OracleDriver
+jpa:
+database: oracle
+show-sql: true
+hibernate:
+ddl-auto: update
+data:
+mongodb:
+database: dist
+host: 127.0.0.1
+port: 27017
+redis:
+host: localhost
+port: 6379
+timeout: 30000
+jedis:
+pool:
+max-idle: 8
+max-wait: -1
+min-idle: 0
+
+#dubbo配置
+dubbo:
+application:
+name: user-service-provider
+registry:
+address: 127.0.0.1:2181
+protocol: zookeeper
+protocol:
+port: 20881
+scan:
+base-packages: com.transform.service
+monitor:
+protocol: registry

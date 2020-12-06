@@ -22,8 +22,8 @@ public class Runner {
 
     }
 
-    public static void batchDeleteHeader(*/
-/*比对用*//*
+    public static void batchDeleteHeader(
+比对用
 String filePath, String newPath, String pathName) {
         File file = new File(newPath);
         if (file.isDirectory()) {
