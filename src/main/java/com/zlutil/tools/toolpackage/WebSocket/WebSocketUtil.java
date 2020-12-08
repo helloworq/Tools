@@ -59,6 +59,6 @@ public class WebSocketUtil {
     }
 
     static boolean isUserExist(String user) {
-        return userPool.keySet().stream().filter(d -> d.equals(user)).count() != 0;
+        return userPool.containsKey(user);
     }
 }
