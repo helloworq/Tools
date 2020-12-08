@@ -1,6 +1,7 @@
 package com.zlutil.tools.toolpackage.WebSocket;
 
 
+import com.zlutil.tools.toolpackage.JavaBasic.MyIO.MyIOUtil;
 import lombok.SneakyThrows;
 
 import java.io.*;
@@ -41,28 +42,19 @@ public class WebSocketUtil {
      * @param filePath 服务器文件路径
      * @throws IOException
      */
-
     public static void sendFile(String user, String filePath) throws IOException {
         if (isUserExist(user)) {
             File file = new File(filePath);
             InputStream in = new FileInputStream(file);
             OutputStream out = userPool.get(user).session.getBasicRemote().getSendStream();
             //异步将输入流写到输出流供浏览器下载，防止服务器长时间阻塞
-            new Thread(
-                    new Runnable() {
-                        @SneakyThrows
-                        @Override
-                        public void run() {
-                            int index;
-                            byte[] bytes = new byte[1024];
-                            while ((index = in.read(bytes)) != -1) {
-                                out.write(bytes, 0, index);
-                                out.flush();
-                            }
-                            in.close();
-                            out.close();
-                        }
-                    }).start();
+            new Thread(() -> {
+                try {
+                    MyIOUtil.inputStreamWriteToOutputStream(in,out);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }).start();
         }
     }
 

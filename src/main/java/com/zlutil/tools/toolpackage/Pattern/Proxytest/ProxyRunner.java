@@ -1,5 +1,6 @@
 package com.zlutil.tools.toolpackage.Pattern.Proxytest;
 
+import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
 
 public class ProxyRunner {
@@ -13,14 +14,11 @@ public class ProxyRunner {
         BuyDrinkProxy buyDrinkProxy = new BuyDrinkProxy(buyDrink);
         buyDrinkProxy.buy();
 
-        BuySomething proxy = (BuySomething) Proxy.newProxyInstance(BuySomething.class.getClassLoader(), new
-                Class[]{BuySomething.class}, new Dymic(buyDrink));
-        proxy.buy();
-
+        System.out.println("\n\n");
         /**
          * 动态代理测试
          */
-        /*System.out.println("---动态代理---");
+        System.out.println("---动态代理---");
         //创建被代理类
         BuySomething buydrink=new BuyDrink();
         //创建调用器，将被代理类作为参数
@@ -30,8 +28,8 @@ public class ProxyRunner {
                 Proxy.newProxyInstance(
                         buydrink.getClass().getClassLoader(),
                         buydrink.getClass().getInterfaces(),
-                        handler
+                        new ProxyHandller(buydrink)
                 );
-        proxyBuyDrink.buy();*/
+        proxyBuyDrink.buy();
     }
 }
