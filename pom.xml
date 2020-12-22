@@ -23,6 +23,7 @@
         <spire.doc.free.version>3.9.0</spire.doc.free.version>
         <httpclient.version>4.5.12</httpclient.version>
         <github.global.server>github</github.global.server>
+        <feign.version>10.5.1</feign.version>
     </properties>
 
     <dependencies>
@@ -132,19 +133,60 @@
             <artifactId>hutool-all</artifactId>
             <version>5.5.1</version>
         </dependency>
+
+        <!--nacos-->
+        <dependency>
+            <groupId>com.alibaba.boot</groupId>
+            <artifactId>nacos-config-spring-boot-starter</artifactId>
+            <version>0.2.7</version>
+        </dependency>
+
+
+        <!-- feign开始 -->
+        <dependency>
+            <groupId>io.github.openfeign</groupId>
+            <artifactId>feign-core</artifactId>
+            <version>${feign.version}</version>
+        </dependency>
+        <!--Jackson编码处理-->
+        <dependency>
+            <groupId>io.github.openfeign</groupId>
+            <artifactId>feign-jackson</artifactId>
+            <version>${feign.version}</version>
+        </dependency>
+        <!--hystrix 服务降级/熔断-->
+        <dependency>
+            <groupId>io.github.openfeign</groupId>
+            <artifactId>feign-hystrix</artifactId>
+            <version>${feign.version}</version>
+        </dependency>
+        <!--支持JAX-RS的注解处理服务请求-->
+        <dependency>
+            <groupId>io.github.openfeign</groupId>
+            <artifactId>feign-jaxrs2</artifactId>
+            <version>${feign.version}</version>
+        </dependency>
+        <!--使用okhttp进行发送请求-->
+        <dependency>
+            <groupId>io.github.openfeign</groupId>
+            <artifactId>feign-okhttp</artifactId>
+            <version>${feign.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.openfeign</groupId>
+            <artifactId>feign-httpclient</artifactId>
+            <version>${feign.version}</version>
+        </dependency>
+        <!--使用slf4j打印日志-->
+        <dependency>
+            <groupId>io.github.openfeign</groupId>
+            <artifactId>feign-slf4j</artifactId>
+            <version>${feign.version}</version>
+        </dependency>
     </dependencies>
 
     <!--============== 配置Artifactory私服START =============== -->
     <repositories>
-        <repository>
-            <id>maven-repo-public-releases</id>
-           <!-- <url>https://raw.github.com/zhengjiaao/maven-repo/master/releases</url>-->
-            <url>http://elb-791125809.cn-northwest-1.elb.amazonaws.com.cn:5335/zhengja/maven-repo/raw/master/releases</url>
-        </repository>
-        <repository>
-            <id>maven-repo-public-snapshots</id>
-            <url>http://elb-791125809.cn-northwest-1.elb.amazonaws.com.cn:5335/zhengja/maven-repo/raw/master/snapshots</url>
-        </repository>
         <!--<repository>
             <id>jarhome</id>
             &lt;!&ndash;将"zhengjiaao"改为 你的github用户名&ndash;&gt;

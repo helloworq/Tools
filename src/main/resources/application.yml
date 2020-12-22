@@ -10,8 +10,8 @@ spring:
         enabled: true
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/testdb
-    password: ''
+    url: jdbc:mysql://127.0.0.1:3306/mytest?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true
+    password: 123456
     username: root
   redis:
     host: localhost
@@ -22,3 +22,26 @@ spring:
         min-idle: 0
     port: 6379
     timeout: 10000
+
+nacos:
+  config:
+    server-addr: 127.0.0.1:8848
+#    enable-remote-sync-config: true
+#    bootstrap:
+#      enable: true
+
+
+# 远程接口-start
+feign:
+  webnr: http://10.18.130.240   # 国土业务
+# 远程接口-end
+
+# 映射实体类
+ims:
+  # 查看指标值固定参数
+  indexValueQuery:
+    system: 可视化体系
+    type: jcl
+    attrs:
+      - id: jcz
+        require: true
