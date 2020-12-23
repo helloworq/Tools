@@ -2,6 +2,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <modules>
+        <module>freemarkerworldutil</module>
+    </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -13,7 +16,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>tools</name>
     <description>Demo project for Spring Boot</description>
-    <packaging>war</packaging>
+    <packaging>pom</packaging>
 
     <properties>
         <java.version>1.8</java.version>
@@ -134,13 +137,6 @@
             <version>5.5.1</version>
         </dependency>
 
-        <!--nacos-->
-        <dependency>
-            <groupId>com.alibaba.boot</groupId>
-            <artifactId>nacos-config-spring-boot-starter</artifactId>
-            <version>0.2.7</version>
-        </dependency>
-
 
         <!-- feign开始 -->
         <dependency>
@@ -183,6 +179,13 @@
             <artifactId>feign-slf4j</artifactId>
             <version>${feign.version}</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.freemarker/freemarker -->
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+            <version>2.3.28</version>
+        </dependency>
+
     </dependencies>
 
     <!--============== 配置Artifactory私服START =============== -->
@@ -306,5 +309,22 @@
             </plugin>-->
         </plugins>
     </build>
-
+    <profiles>
+        <profile>
+            <id>test</id>
+            <activation>
+                <!--默认激活-->
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <spring.profiles.active>test</spring.profiles.active>
+            </properties>
+        </profile>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <spring.profiles.active>dev</spring.profiles.active>
+            </properties>
+        </profile>
+    </profiles>
 </project>
