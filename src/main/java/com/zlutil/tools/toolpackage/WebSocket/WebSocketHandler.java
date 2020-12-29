@@ -37,7 +37,7 @@ public class WebSocketHandler {
     @OnMessage
     public void onMessage(String user) {
         WebSocketUtil.put(user, this);
-        log.info("当前用户sessionId, user{}---{}", this.session.getId(), user);
+        log.info("当前用户sessionId, {}---{}", this.session.getId(), user);
     }
 
     //关闭时执行

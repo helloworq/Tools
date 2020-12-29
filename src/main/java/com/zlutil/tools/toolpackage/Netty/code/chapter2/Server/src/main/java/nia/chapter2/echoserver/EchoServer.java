@@ -22,15 +22,8 @@ public class EchoServer {
         this.port = port;
     }
 
-    public static void main(String[] args)
-        throws Exception {
-        if (args.length != 1) {
-            System.err.println("Usage: " + EchoServer.class.getSimpleName() +
-                " <port>"
-            );
-            return;
-        }
-        int port = Integer.parseInt(args[0]);
+    public static void main(String[] args) throws Exception {
+        int port = Integer.parseInt("6666");
         new EchoServer(port).start();
     }
 
@@ -39,19 +32,19 @@ public class EchoServer {
         EventLoopGroup group = new NioEventLoopGroup();
         try {
             ServerBootstrap b = new ServerBootstrap();
-            b.group(group)
-                .channel(NioServerSocketChannel.class)
-                .localAddress(new InetSocketAddress(port))
-                .childHandler(new ChannelInitializer<SocketChannel>() {
-                    @Override
-                    public void initChannel(SocketChannel ch) throws Exception {
-                        ch.pipeline().addLast(serverHandler);
-                    }
-                });
+            b.group(group)                                //启动容器加入事件循环
+                    .channel(NioServerSocketChannel.class)//启动容器初始化管道
+                    .localAddress(new InetSocketAddress(port))//启动容器监听指定端口
+                    .childHandler(new ChannelInitializer<SocketChannel>() {//启动容器增加事件处理处理器
+                        @Override
+                        public void initChannel(SocketChannel ch) throws Exception {
+                            ch.pipeline().addLast(serverHandler);
+                        }
+                    });
 
-            ChannelFuture f = b.bind().sync();
+            ChannelFuture f = b.bind().sync();//定义未来事件处理机制
             System.out.println(EchoServer.class.getName() +
-                " started and listening for connections on " + f.channel().localAddress());
+                    " started and listening for connections on " + f.channel().localAddress());
             f.channel().closeFuture().sync();
         } finally {
             group.shutdownGracefully().sync();

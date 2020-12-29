@@ -3,7 +3,7 @@ spring:
     url: jdbc:oracle:thin:@127.0.0.1/ORCL
     username: DIST
     password: 12345678
-    driver-class-name: oracle.jdbc.driver.OracleDriver
+    driver-class-name: oracle.jdbc.OracleDriver
   jpa:
     database: oracle
     show-sql: true

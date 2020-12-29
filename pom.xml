@@ -16,7 +16,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>tools</name>
     <description>Demo project for Spring Boot</description>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
 
     <properties>
         <java.version>1.8</java.version>
@@ -186,6 +186,26 @@
             <version>2.3.28</version>
         </dependency>
 
+        <!--netty-->
+        <!-- https://mvnrepository.com/artifact/io.netty/netty-all -->
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
+            <version>4.0.42.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java</artifactId>
+            <version>3.14.0</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.jacob/jacob -->
+        <!-- https://mvnrepository.com/artifact/net.sf.jacob-project/jacob -->
+
+
     </dependencies>
 
     <!--============== 配置Artifactory私服START =============== -->
@@ -263,6 +283,25 @@
     </distributionManagement>
     <!--============== 配置Artifactory私服End =============== -->
     <build>
+        <finalName>tools</finalName>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <!--先排除所有的配置文件-->
+                <excludes>
+                    <exclude>application*.yml</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <!--引入所需环境的配置文件-->
+                <filtering>true</filtering>
+                <includes>
+                    <include>application.yml</include>
+                    <include>application-dev.yml</include>
+                </includes>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

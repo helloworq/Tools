@@ -3,3 +3,6 @@ server:
 spring:
   profiles:
     active: '@spring.profiles.active@' #此处由maven的环境选择决
+
+self:
+  shareFolder: "file:E:\\迅雷下载\\ShareFolder\\"

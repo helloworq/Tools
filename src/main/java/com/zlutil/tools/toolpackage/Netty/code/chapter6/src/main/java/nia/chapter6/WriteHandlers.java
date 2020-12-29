@@ -4,10 +4,10 @@ import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelPipeline;
-import io.netty.channel.DummyChannelPipeline;
+//import io.netty.channel.DummyChannelPipeline;
 import io.netty.util.CharsetUtil;
 
-import static io.netty.channel.DummyChannelHandlerContext.DUMMY_INSTANCE;
+//import static io.netty.channel.DummyChannelHandlerContext.DUMMY_INSTANCE;
 
 /**
  * Created by kerr.
@@ -19,8 +19,8 @@ import static io.netty.channel.DummyChannelHandlerContext.DUMMY_INSTANCE;
  * Listing 6.8 Calling ChannelHandlerContext write()
  */
 public class WriteHandlers {
-    private static final ChannelHandlerContext CHANNEL_HANDLER_CONTEXT_FROM_SOMEWHERE = DUMMY_INSTANCE;
-    private static final ChannelPipeline CHANNEL_PIPELINE_FROM_SOMEWHERE = DummyChannelPipeline.DUMMY_INSTANCE;
+    private static final ChannelHandlerContext CHANNEL_HANDLER_CONTEXT_FROM_SOMEWHERE = null;
+    private static final ChannelPipeline CHANNEL_PIPELINE_FROM_SOMEWHERE = null;
 
     /**
      * Listing 6.6 Accessing the Channel from a ChannelHandlerContext

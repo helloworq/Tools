@@ -27,6 +27,26 @@ public class RW_File {
     }
 
     /**
+     * 根据File_Path获取目标文件，并且返回目标文件的字符串形式
+     * @param File_Path
+     * @return
+     * @throws IOException
+     */
+    public static StringBuilder stringBuilderRead(String File_Path) throws IOException {
+        File file = new File(File_Path);
+        FileReader fileReader = new FileReader(file);
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        StringBuilder str = new StringBuilder();
+        String prev = "";//使用中间变量，防止文件指针偏移
+        while ((prev = bufferedReader.readLine()) != null) {
+            str.append(prev + "\n");
+        }
+        fileReader.close();
+        bufferedReader.close();
+        return str;
+    }
+
+    /**
      * 写入-flag为true则为追加写入
      * @param File_Path
      * @param str

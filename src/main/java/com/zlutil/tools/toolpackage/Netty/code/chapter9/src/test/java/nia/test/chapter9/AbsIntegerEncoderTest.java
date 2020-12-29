@@ -1,9 +1,10 @@
 package com.zlutil.tools.toolpackage.Netty.code.chapter9.src.test.java.nia.test.chapter9;
 
+import com.zlutil.tools.toolpackage.Netty.code.chapter9.src.main.java.nia.chapter9.AbsIntegerEncoder;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.embedded.EmbeddedChannel;
-import nia.chapter9.AbsIntegerEncoder;
+//import nia.chapter9.AbsIntegerEncoder;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -13,6 +14,7 @@ import static org.junit.Assert.*;
  *
  * @author <a href="mailto:norman.maurer@gmail.com">Norman Maurer</a>
  */
+/*
 public class AbsIntegerEncoderTest {
     @Test
     public void testEncoded() {
@@ -33,3 +35,4 @@ public class AbsIntegerEncoderTest {
         assertNull(channel.readOutbound());
     }
 }
+*/

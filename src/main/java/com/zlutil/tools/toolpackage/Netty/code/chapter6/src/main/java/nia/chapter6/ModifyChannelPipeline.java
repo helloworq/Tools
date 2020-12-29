@@ -3,7 +3,7 @@ package com.zlutil.tools.toolpackage.Netty.code.chapter6.src.main.java.nia.chapt
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelPipeline;
 
-import static io.netty.channel.DummyChannelPipeline.DUMMY_INSTANCE;
+//import static io.netty.channel.DummyChannelPipeline.DUMMY_INSTANCE;
 
 /**
  * Listing 6.5 Modify the ChannelPipeline
@@ -11,7 +11,7 @@ import static io.netty.channel.DummyChannelPipeline.DUMMY_INSTANCE;
  * @author <a href="mailto:norman.maurer@gmail.com">Norman Maurer</a>
  */
 public class ModifyChannelPipeline {
-    private static final ChannelPipeline CHANNEL_PIPELINE_FROM_SOMEWHERE = DUMMY_INSTANCE;
+    private static final ChannelPipeline CHANNEL_PIPELINE_FROM_SOMEWHERE = null;
 
     /**
      * Listing 6.5 Modify the ChannelPipeline

@@ -1,10 +1,11 @@
 package com.zlutil.tools.toolpackage.Netty.code.chapter9.src.test.java.nia.test.chapter9;
 
+import com.zlutil.tools.toolpackage.Netty.code.chapter9.src.main.java.nia.chapter9.FrameChunkDecoder;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.embedded.EmbeddedChannel;
 import io.netty.handler.codec.TooLongFrameException;
-import nia.chapter9.FrameChunkDecoder;
+//import nia.chapter9.FrameChunkDecoder;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -16,6 +17,7 @@ import static org.junit.Assert.*;
  * @author <a href="mailto:norman.maurer@gmail.com">Norman Maurer</a>
  */
 
+/*
 public class FrameChunkDecoderTest {
     @Test
     public void testFramesDecoded() {
@@ -49,3 +51,4 @@ public class FrameChunkDecoderTest {
         buf.release();
     }
 }
+*/

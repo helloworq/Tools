@@ -1,6 +1,6 @@
 package com.zlutil.tools.toolpackage.Netty.code.chapter5.src.main.java.io.netty.channel;
 
-import io.netty.channel.AbstractChannelHandlerContext;
+
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.DefaultChannelPipeline;
@@ -9,7 +9,7 @@ import io.netty.util.concurrent.EventExecutor;
 /**
  * Created by kerr.
  */
-public class DummyChannelHandlerContext extends AbstractChannelHandlerContext {
+/*public class DummyChannelHandlerContext extends AbstractChannelHandlerContext {
     public static ChannelHandlerContext DUMMY_INSTANCE = new DummyChannelHandlerContext(
             null,
             null,
@@ -27,4 +27,4 @@ public class DummyChannelHandlerContext extends AbstractChannelHandlerContext {
     public ChannelHandler handler() {
         return null;
     }
-}
+}*/

@@ -24,22 +24,21 @@ public class EchoClient {
         this.port = port;
     }
 
-    public void start()
-        throws Exception {
+    public void start() throws Exception {
         EventLoopGroup group = new NioEventLoopGroup();
         try {
             Bootstrap b = new Bootstrap();
-            b.group(group)
-                .channel(NioSocketChannel.class)
-                .remoteAddress(new InetSocketAddress(host, port))
-                .handler(new ChannelInitializer<SocketChannel>() {
-                    @Override
-                    public void initChannel(SocketChannel ch)
-                        throws Exception {
-                        ch.pipeline().addLast(
-                             new EchoClientHandler());
-                    }
-                });
+            b.group(group)                          //启动容器加入事件循环
+                    .channel(NioSocketChannel.class)//启动容器初始化管道
+                    .remoteAddress(new InetSocketAddress(host, port))
+                    .handler(new ChannelInitializer<SocketChannel>() {
+                        @Override
+                        public void initChannel(SocketChannel ch)
+                                throws Exception {
+                            ch.pipeline().addLast(
+                                    new EchoClientHandler());
+                        }
+                    });
             ChannelFuture f = b.connect().sync();
             f.channel().closeFuture().sync();
         } finally {
@@ -47,17 +46,9 @@ public class EchoClient {
         }
     }
 
-    public static void main(String[] args)
-            throws Exception {
-        if (args.length != 2) {
-            System.err.println("Usage: " + EchoClient.class.getSimpleName() +
-                    " <host> <port>"
-            );
-            return;
-        }
-
-        final String host = args[0];
-        final int port = Integer.parseInt(args[1]);
+    public static void main(String[] args) throws Exception {
+        final String host = "127.0.0.1";
+        final int port = Integer.parseInt("6666");
         new EchoClient(host, port).start();
     }
 }

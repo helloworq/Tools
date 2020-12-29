@@ -10,7 +10,7 @@ import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.util.Random;
 
-import static io.netty.channel.DummyChannelHandlerContext.DUMMY_INSTANCE;
+;
 
 /**
  * Created by kerr.
@@ -51,7 +51,7 @@ public class ByteBufExamples {
     private final static Random random = new Random();
     private static final ByteBuf BYTE_BUF_FROM_SOMEWHERE = Unpooled.buffer(1024);
     private static final Channel CHANNEL_FROM_SOMEWHERE = new NioSocketChannel();
-    private static final ChannelHandlerContext CHANNEL_HANDLER_CONTEXT_FROM_SOMEWHERE = DUMMY_INSTANCE;
+    private static final ChannelHandlerContext CHANNEL_HANDLER_CONTEXT_FROM_SOMEWHERE = null;
     /**
      * Listing 5.1 Backing array
      */
