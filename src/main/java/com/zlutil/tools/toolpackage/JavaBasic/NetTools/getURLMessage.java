@@ -9,7 +9,8 @@ import org.apache.http.util.EntityUtils;
 
 public class getURLMessage {
     public static void main(String[] args) {
-        System.out.println(simpleClient.sendGet("http://patorjk.com/software/taag/fonts/Big.flf"));
+        //System.out.println(simpleClient.sendGet("http://patorjk.com/software/taag/fonts/Big.flf"));
+        System.out.println(simpleClient.sendGet("https://item.jd.com/100012885246.html"));
     }
 
     //获取目标链接的html数据

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>第一个 ECharts 实例</title>
+    <!-- 引入 echarts.js -->
+    <script src="echart.js"></script>
+</head>
+<body>
+<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+<div id="main" style="width: 600px;height:400px;"></div>
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+
+    // 指定图表的配置项和数据
+    var option = {
+        title: {
+            text: '京东商品价格走势'                            //标题
+        },
+        tooltip: {},
+        legend: {                                                //正中央显示信息(显示当前颜色代表信息)
+            data: ['京东商品价格走势']
+        },
+        xAxis: {
+            data: ["12.21", "12.22", "12.23", "12.24", "12.25", "12.26"]   //横坐标数据
+        },
+        yAxis: {},
+        series: [
+            {
+                name: 'r7000',                                     //鼠标移动到图线上的显示信息
+                type: 'line',                                         //折线图显示
+                data: [5699, 5199, 6099, 5699, 6699, 5699]                      //纵坐标数据
+            },
+            {
+                name: 'y7000',                                     //鼠标移动到图线上的显示信息
+                type: 'line',                                         //折线图显示
+                data: [5399, 5199, 6199, 5799, 6299, 5099]                      //纵坐标数据
+            }
+        ]
+    };
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+
+</script>
+</body>
+</html>

@@ -12,6 +12,10 @@ import java.net.InetSocketAddress;
 
 /**
  * Listing 2.2 EchoServer class
+ * <p>
+ * Channel——Socket;
+ * EventLoop——控制流、多线程处理、并发;
+ * ChannelFuture——异步通知。
  *
  * @author <a href="mailto:norman.maurer@gmail.com">Norman Maurer</a>
  */

@@ -13,6 +13,10 @@ import java.net.InetSocketAddress;
 /**
  * Listing 2.4 Main class for the client
  *
+ * Channel——Socket;
+ * EventLoop——控制流、多线程处理、并发;
+ * ChannelFuture——异步通知。
+ *
  * @author <a href="mailto:norman.maurer@gmail.com">Norman Maurer</a>
  */
 public class EchoClient {
@@ -24,6 +28,12 @@ public class EchoClient {
         this.port = port;
     }
 
+    public static void main(String[] args) throws Exception {
+        final String host = "127.0.0.1";
+        final int port = Integer.parseInt("6666");
+        new EchoClient(host, port).start();
+    }
+
     public void start() throws Exception {
         EventLoopGroup group = new NioEventLoopGroup();
         try {
@@ -33,8 +43,7 @@ public class EchoClient {
                     .remoteAddress(new InetSocketAddress(host, port))
                     .handler(new ChannelInitializer<SocketChannel>() {
                         @Override
-                        public void initChannel(SocketChannel ch)
-                                throws Exception {
+                        public void initChannel(SocketChannel ch) throws Exception {
                             ch.pipeline().addLast(
                                     new EchoClientHandler());
                         }
@@ -44,12 +53,6 @@ public class EchoClient {
         } finally {
             group.shutdownGracefully().sync();
         }
-    }
-
-    public static void main(String[] args) throws Exception {
-        final String host = "127.0.0.1";
-        final int port = Integer.parseInt("6666");
-        new EchoClient(host, port).start();
     }
 }
 
