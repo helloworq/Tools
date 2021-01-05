@@ -32,15 +32,39 @@ public class RW_File {
      * @return
      * @throws IOException
      */
-    public static StringBuilder stringBuilderRead(String File_Path) throws IOException {
+    public static StringBuilder readTxtWithStringBuilder(String File_Path) throws IOException {
         File file = new File(File_Path);
         FileReader fileReader = new FileReader(file);
         BufferedReader bufferedReader = new BufferedReader(fileReader);
-        StringBuilder str = new StringBuilder();
         String prev = "";//使用中间变量，防止文件指针偏移
+
+        StringBuilder str = new StringBuilder();
         while ((prev = bufferedReader.readLine()) != null) {
             str.append(prev + "\n");
         }
+
+        fileReader.close();
+        bufferedReader.close();
+        return str;
+    }
+
+    /**
+     * 根据File_Path获取目标文件，并且返回目标文件的字符串形式
+     * @param File_Path
+     * @return
+     * @throws IOException
+     */
+    public static StringBuffer readTxtWithStringBuffer(String File_Path) throws IOException {
+        File file = new File(File_Path);
+        FileReader fileReader = new FileReader(file);
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        String prev = "";//使用中间变量，防止文件指针偏移
+
+        StringBuffer str = new StringBuffer();
+        while ((prev = bufferedReader.readLine()) != null) {
+            str.append(prev + "\n");
+        }
+
         fileReader.close();
         bufferedReader.close();
         return str;

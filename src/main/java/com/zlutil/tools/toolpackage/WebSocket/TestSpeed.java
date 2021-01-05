@@ -7,7 +7,21 @@ import java.io.*;
 
 public class TestSpeed {
     public static void main(String[] args) throws IOException {
-        System.out.println(System.getProperty("user.dir"));
+        String filePath="C:\\Users\\12733\\Desktop\\new.sql";
+
+        for (int i = 0; i < 30; i++) {
+        /*long a=System.currentTimeMillis();
+        System.out.println(RW_File.read_txt(filePath).length());
+        System.out.println("String时间"+(System.currentTimeMillis()-a));*/
+
+            long b = System.currentTimeMillis();
+            RW_File.readTxtWithStringBuilder(filePath);
+            System.out.print("StringBuilder时间: " + (System.currentTimeMillis() - b)+"     ");
+
+            long c = System.currentTimeMillis();
+            RW_File.readTxtWithStringBuffer(filePath);
+            System.out.println("StringBuffer时间: " + (System.currentTimeMillis() - c));
+        }
 /*        String filePath="C:\\Users\\12733\\Desktop\\计算机网络.pdf";
 
         long a=System.currentTimeMillis();
