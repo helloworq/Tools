@@ -3,10 +3,7 @@ package com.zlutil.tools.toolpackage.JavaBasic.MyIO;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.UUID;
 
 @Service
@@ -122,4 +119,16 @@ public class MyIOUtil {
         return dotIndex == -1 ? fileCompletePath : fileCompletePath.substring(0, dotIndex);
     }
 
+    /**
+     * 清空文件信息
+     * @param filePath
+     * @return
+     * @throws IOException
+     */
+    public static void clearFileInfo(String filePath) throws IOException {
+        File file=new File(filePath);
+        FileOutputStream fileOutputStream=new FileOutputStream(file);
+        fileOutputStream.write(new byte[0]);
+        fileOutputStream.close();
+    }
 }
