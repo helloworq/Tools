@@ -1,9 +1,7 @@
 package com.zlutil.tools.toolpackage.JavaBasic.MyIO;
 
 import cn.hutool.core.io.FileUtil;
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import io.swagger.models.auth.In;
 
 import java.io.*;
 import java.util.*;
