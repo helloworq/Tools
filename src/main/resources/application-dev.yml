@@ -25,7 +25,10 @@ spring:
         min-idle: 0
     port: 6379
     timeout: 10000
-
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
 nacos:
   config:
     server-addr: 127.0.0.1:8848
@@ -34,10 +37,6 @@ nacos:
 #      enable: true
 
 
-# 远程接口-start
-feign:
-  webnr: http://10.18.130.240   # 国土业务
-# 远程接口-end
 
 # 映射实体类
 ims:
@@ -48,3 +47,10 @@ ims:
     attrs:
       - id: jcz
         require: true
+
+
+minio:
+  Url: http://127.0.0.1:9000
+  AccessKey: minioadmin
+  SecretKey: minioadmin
+  BucketName: filebed

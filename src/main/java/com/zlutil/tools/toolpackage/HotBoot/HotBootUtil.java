@@ -108,7 +108,7 @@ public class HotBootUtil {
             FileInputStream fileInputStream=new FileInputStream(dir);
             hotBootEnity.setFileMd5(Arrays.toString(DigestUtils.md5(fileInputStream)));
             fileInputStream.close();
-            hotBootEnity.setSize(String.valueOf(dir.length()));
+            hotBootEnity.setFileSize(String.valueOf(dir.length()));
             hotBootEnity.setFileExtension(FileUtil.getSuffix(dir));
             fileList.add(hotBootEnity);
             return;
@@ -153,7 +153,7 @@ public class HotBootUtil {
             hotBootDTO.setModifyTime(simpleDateFormat.format(date));
             hotBootDTO.setFileExtension(FileUtil.getSuffix(node));
             hotBootDTO.setType("file");
-            hotBootDTO.setSize(String.valueOf(node.length()));
+            hotBootDTO.setFileSize(String.valueOf(node.length()));
             hotBootDTO.setNodeLength("String.valueOf(dirMap.keySet().size())");
 
             FileInputStream fileInputStream = new FileInputStream(node);

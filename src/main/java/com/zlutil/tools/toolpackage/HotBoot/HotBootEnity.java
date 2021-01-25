@@ -1,17 +1,18 @@
 package com.zlutil.tools.toolpackage.HotBoot;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
+@Data
 @Entity
 @Table(name = "HotBoot")
-@Data
 public class HotBootEnity {
     @Id
-    @GenericGenerator(name = "idGenerator", strategy = "uuid")
-    @GeneratedValue(generator = "idGenerator")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ID", nullable = false)
     private String id;
 
     @Column(name = "modifyTime", length = 64)
@@ -29,6 +30,6 @@ public class HotBootEnity {
     @Column(name = "fileExtension", length = 64)
     private String fileExtension;
 
-    @Column(name = "size", length = 64)
-    private String size;
+    @Column(name = "fileSize", length = 64)
+    private String fileSize;
 }

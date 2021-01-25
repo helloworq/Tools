@@ -9,7 +9,7 @@ public class HotBootDTO {
     public String FilePath;
     public String FileName;
     public String FileMd5;
-    private String size;
+    private String fileSize;
     private String nodeLength;
     private String count;
     private String fileExtension;

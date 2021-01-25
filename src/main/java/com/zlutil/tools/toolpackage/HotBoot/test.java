@@ -56,7 +56,7 @@ public class test {
             hotBootDTO.setModifyTime(simpleDateFormat.format(date));
             hotBootDTO.setFileExtension(FileUtil.getSuffix(node));
             hotBootDTO.setType("file");
-            hotBootDTO.setSize(String.valueOf(node.length()));
+            hotBootDTO.setFileSize(String.valueOf(node.length()));
             hotBootDTO.setNodeLength("String.valueOf(dirMap.keySet().size())");
 
             FileInputStream fileInputStream = new FileInputStream(node);
