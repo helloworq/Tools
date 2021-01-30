@@ -44,4 +44,16 @@ public class MinioUploader {
     public ResponseData getFileInfo(@ApiParam("多选") @RequestParam(value = "objectId") String objectId) {
         return ResponseUtil.success(minioClient.getFileInfo(objectId));
     }
+
+    @ApiOperation(value = "获取文件链接")
+    @PostMapping(value = "/getFileUrl")
+    public ResponseData getFileUrl(@ApiParam("多选") @RequestParam(value = "objectId") String objectId) {
+        return ResponseUtil.success(minioClient.getFileUrl(objectId));
+    }
+
+    @ApiOperation(value = "获取全部桶")
+    @PostMapping(value = "/getBuckets")
+    public ResponseData getAllFileInBucket(@ApiParam("多选") @RequestParam(value = "objectId") String objectId) {
+        return ResponseUtil.success(minioClient.getAllBuckets());
+    }
 }

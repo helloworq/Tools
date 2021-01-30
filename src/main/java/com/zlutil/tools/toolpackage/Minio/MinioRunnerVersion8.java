@@ -6,34 +6,46 @@ import io.minio.http.Method;
 import io.minio.messages.Bucket;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import oracle.jdbc.proxy.annotation.Methods;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 //Minio Version 8+
 @Slf4j
 @Service
 public class MinioRunnerVersion8 {
 
-    @Value("${minio.Url}")
-    public String Url;
+//    @Value("${minio.Url}")
+//    public String Url;
+//
+//    @Value("${minio.AccessKey}")
+//    public String AccessKey;
+//
+//    @Value("${minio.SecretKey}")
+//    public String SecretKey;
+//
+//    @Value("${minio.BucketName}")
+//    public String BucketName;
 
-    @Value("${minio.AccessKey}")
-    public String AccessKey;
+    public String Url = "http://127.0.0.1:9000";
 
-    @Value("${minio.SecretKey}")
-    public String SecretKey;
+    public String AccessKey = "minioadmin";
 
-    @Value("${minio.BucketName}")
-    public String BucketName;
+    public String SecretKey = "minioadmin";
 
-    public static MinioClient minioClient;
+    public String BucketName = "filebed";
+
+    public MinioClient minioClient;
+    //public static MinioClient minioClient;
 
     public static void main(String[] args) throws IOException, InvalidResponseException, InvalidKeyException, NoSuchAlgorithmException, ServerException, InternalException, XmlParserException, InsufficientDataException, ErrorResponseException {
         new MinioRunnerVersion8().init();
@@ -41,16 +53,15 @@ public class MinioRunnerVersion8 {
 
     public String getConfigValue() {
         return
-                        "Url:        " + this.Url + "\n" +
-                        "AccessKey:  " + this.AccessKey + "\n" +
-                        "BucketName: " + this.BucketName + "\n" +
-                        "SecretKey:  " + this.SecretKey;
+                "Url         :        " + this.Url + "\n" +
+                        "AccessKey   :        " + this.AccessKey + "\n" +
+                        "BucketName  :        " + this.BucketName + "\n" +
+                        "SecretKey   :        " + this.SecretKey;
     }
 
     @PostConstruct
-    public void init() {
+    public void init() throws IOException, InvalidKeyException, InvalidResponseException, InsufficientDataException, NoSuchAlgorithmException, ServerException, ErrorResponseException, XmlParserException, InternalException {
         try {
-            log.info("初始化MinioClient");
             minioClient = MinioClient.builder()
                     .endpoint(Url)
                     .credentials(AccessKey, SecretKey)
@@ -61,6 +72,10 @@ public class MinioRunnerVersion8 {
             e.printStackTrace();
             log.info("初始化MinioClient失败!");
         }
+        log.info("开始上传");
+        //uploadFile("yyy.jpg", "C:\\Users\\12733\\Desktop\\777.jpg");
+        //System.out.println(getFileInfo("666"));
+        //System.out.println(getFileUrl("yyy.jpg"));
     }
 
     /**
@@ -98,7 +113,16 @@ public class MinioRunnerVersion8 {
                         .object(ObjectId)
                         .build()
         );
-        return stat.toString();
+        return getFileInfoWithFormat(stat);
+    }
+
+    private String getFileInfoWithFormat(StatObjectResponse stat) {
+        return
+                "file.userMetadata()      :     " + stat.userMetadata() + "\n" +
+                        "file.versionId()         :     " + stat.versionId() + "\n" +
+                        "file.contentType()       :     " + stat.contentType() + "\n" +
+                        "file.size()              :     " + stat.size() + "\n" +
+                        "file.lastModified()      :     " + stat.lastModified();
     }
 
     /**
@@ -138,28 +162,41 @@ public class MinioRunnerVersion8 {
      * @param contentType 文件类型
      */
     @SneakyThrows(Exception.class)
-    public void uploadFile(String objectId, String filePath, String contentType) {
+    public String uploadFile(String objectId, String filePath, String contentType, Map<String, String> fileInfo) {
         UploadObjectArgs uploadObjectArgs = null;
-        if (Objects.nonNull(contentType)) {
+        if (Objects.nonNull(contentType) && Objects.nonNull(fileInfo)) {
             uploadObjectArgs = UploadObjectArgs.builder()
                     .bucket(BucketName)
                     .object(objectId)
                     .filename(filePath)
+                    .userMetadata(fileInfo)
                     .contentType(contentType)
+                    .build();
+        } else if (Objects.isNull(contentType) && Objects.isNull(fileInfo)) {
+            uploadObjectArgs = UploadObjectArgs.builder()
+                    .bucket(BucketName)
+                    .object(objectId)
+                    .filename(filePath)
                     .build();
         } else {
             uploadObjectArgs = UploadObjectArgs.builder()
                     .bucket(BucketName)
                     .object(objectId)
                     .filename(filePath)
+                    .userMetadata(fileInfo)
                     .build();
         }
         ObjectWriteResponse response = minioClient.uploadObject(uploadObjectArgs);
         log.info("上传完成" + response.versionId());
+        return "s";
     }
 
     public void uploadFile(String objectId, String filePath) {
-        this.uploadFile(objectId, filePath, null);
+        this.uploadFile(objectId, filePath, null, null);
+    }
+
+    public void uploadFileWithMeta(String objectId, String filePath, Map<String, String> fileInfo) throws IOException, ServerException, InsufficientDataException, InternalException, InvalidResponseException, InvalidKeyException, NoSuchAlgorithmException, XmlParserException, ErrorResponseException {
+        this.uploadFile(objectId, filePath, null, fileInfo);
     }
 
     public void uploadFileStream(String objectId, InputStream inputStream) throws IOException, ServerException, InsufficientDataException, InternalException, InvalidResponseException, InvalidKeyException, NoSuchAlgorithmException, XmlParserException, ErrorResponseException {
@@ -202,7 +239,7 @@ public class MinioRunnerVersion8 {
                     .build();
         } else {
             presignedObjectUrlArgs = GetPresignedObjectUrlArgs.builder()
-                    .method(Method.DELETE)
+                    .method(Method.GET)
                     .bucket(BucketName)
                     .object(objectId)
                     .expiry(24 * 60 * 60)

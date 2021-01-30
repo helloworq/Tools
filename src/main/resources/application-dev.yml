@@ -54,3 +54,13 @@ minio:
   AccessKey: minioadmin
   SecretKey: minioadmin
   BucketName: filebed
+
+dist:
+  minio:
+    config:
+      enabled: true
+      secure: false
+      endpoint: http://127.0.0.1
+      port: 9000
+      accessKey: minioadmin
+      secretKey: minioadmin
