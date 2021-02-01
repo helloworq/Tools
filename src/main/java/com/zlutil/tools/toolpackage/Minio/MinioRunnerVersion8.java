@@ -59,7 +59,7 @@ public class MinioRunnerVersion8 {
                         "SecretKey   :        " + this.SecretKey;
     }
 
-    @PostConstruct
+    //@PostConstruct
     public void init() throws IOException, InvalidKeyException, InvalidResponseException, InsufficientDataException, NoSuchAlgorithmException, ServerException, ErrorResponseException, XmlParserException, InternalException {
         try {
             minioClient = MinioClient.builder()

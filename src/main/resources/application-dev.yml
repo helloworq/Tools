@@ -29,6 +29,9 @@ spring:
     multipart:
       max-file-size: 100MB
       max-request-size: 100MB
+  elasticsearch:
+    rest:
+      uris: http//localhost:9200
 nacos:
   config:
     server-addr: 127.0.0.1:8848
@@ -64,3 +67,8 @@ dist:
       port: 9000
       accessKey: minioadmin
       secretKey: minioadmin
+
+es:
+  host: localhost
+  port: 9200
+  scheme: http
