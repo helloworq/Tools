@@ -18,17 +18,19 @@ public class YieldPatrolEntity {
     //镇
     private String town;
     //村
-    private String county;
+    private String village;
     //地块id
     private String yieldId;
     //原利用情况
-    private String originalUtilization;
+    private Integer originalUtilization;
     //现利用情况
-    private String nowlUtilization;
+    private Integer nowlUtilization;
     //巡查时间
     private Date patrolTime;
     //巡查人
     private String patrolMan;
+    //经办人(此字段挂钩patrolMan的领导，从村级田长到县级田长)
+    private String agent;
     //从创建开始到处理前间隔的天数
-    private String periodTime;
+    private Integer periodTime;
 }
