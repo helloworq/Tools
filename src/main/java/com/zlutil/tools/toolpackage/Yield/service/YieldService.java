@@ -12,9 +12,11 @@ import com.zlutil.tools.toolpackage.Yield.entity.YieldPatrolEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringBootVersion;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -59,7 +61,7 @@ public class YieldService {
     }
 
     /**
-     * 获取指定图块的基本信息
+     * 获取指定地块的基本信息
      *
      * @param yieldId
      * @return
@@ -114,6 +116,7 @@ public class YieldService {
             yieldPatrolEntity.setPatrolTime(new Date());
             yieldPatrolEntity.setPatrolMan(blockManagerId);
             yieldPatrolEntity.setPeriodTime(0);
+            yieldPatrolEntity.setHandleStatus(0);
             //发给直属上级
             yieldPatrolEntity.setAgent(yieldHeadDao.findLeader(blockManagerId));
             yieldPatrolDao.save(yieldPatrolEntity);
@@ -124,12 +127,73 @@ public class YieldService {
     }
 
     /**
-     * 定时任务，每天早上九点中触发一次，检测巡查任务列表未处理任务，将其periodTime加1，超过15天转交上级领导
+     * 1.定时任务，每天早上九点中触发一次，检测巡查任务列表未处理任务，将其periodTime加1，
+     * 2.超过15天转交上级领导
+     * 传任务的每一级都需要留痕
      */
     @Scheduled(cron = "0 0 9 * * ?")
-    public void timer(){
+    @Transactional
+    public void timer() {
         yieldPatrolDao.incAllPeriodTime();
-        //检查超过十五天的未处理任务，转发给上级领导
-        yieldPatrolDao.checkUnhandleTaskAndUpload();
+        //检测检查超过十五天的未处理任务，转发给上级领导
+        List<YieldPatrolEntity> patrolEntities = yieldPatrolDao.findAllOvertimeTask();
+        patrolEntities.forEach(element -> submitUnableHandleTask(element, null, true));
+    }
+
+    /**
+     * 1.供定时器调用
+     * 2.供判断自己无法处理时手动提交上级处理时调用
+     * 上传任务的每一级都需要留痕
+     */
+    public YieldPatrolEntity submitUnableHandleTask(YieldPatrolEntity entity, String taskId, Boolean isTimerInvoke) {
+        YieldPatrolEntity element;
+        if (!isTimerInvoke) {
+            element = yieldPatrolDao.findById(Long.valueOf(taskId)).get();
+        } else {
+            element = entity;
+        }
+        //创建上传任务
+        YieldPatrolEntity patrolEntity = new YieldPatrolEntity();
+        BeanUtils.copyProperties(element, patrolEntity, "id");
+        patrolEntity.setPatrolMan(element.getAgent());//巡查对象变为经办人
+        patrolEntity.setAgent(yieldHeadDao.findLeader(element.getAgent()));
+        patrolEntity.setPatrolTime(new Date());
+        patrolEntity.setPeriodTime(0);
+        patrolEntity.setPrevTaskId(element.getId());
+        patrolEntity.setHandleStatus(0);
+        yieldPatrolDao.save(patrolEntity);
+        //修改自己的任务信息将当前任务的状态修改为"已办事宜" (留痕)
+        element.setHandleStatus(1);
+        return yieldPatrolDao.save(element);
+    }
+
+    /**
+     * 上级获取还未处理的下级提交上来的任务
+     */
+    public List<YieldPatrolEntity> getUnhandleSubordinateUploadTask(String userId) {
+        return yieldPatrolDao.getUnhandleSubordinateUploadTask(userId);
+    }
+
+    /**
+     * 办结任务(任务可能提交了多级，需要全部修改状态)
+     */
+    public String concludeTask(String taskId) {
+        YieldPatrolEntity yieldPatrolEntity = yieldPatrolDao.findById(Long.valueOf(taskId)).get();
+        if (yieldPatrolEntity.getHandleStatus().equals(2)) {
+            return "当前任务已办结，请确定ID是否正确!";
+        } else {
+            yieldPatrolDao.concludeTask(taskId);
+            return "办结完成";
+        }
+    }
+
+    /**
+     * 获取用户的待办任务 (待办任务可能是用户查看了之后正在处理的，或者是提交给上级之后等待上级处理的状态)
+     *
+     * @param userId
+     * @return
+     */
+    public List<YieldPatrolEntity> getPendingTask(String userId) {
+        return yieldPatrolDao.getPendingTask(userId);
     }
 }

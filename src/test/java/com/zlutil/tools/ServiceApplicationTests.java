@@ -3,10 +3,12 @@ package com.zlutil.tools;
 import com.alibaba.fastjson.JSON;
 import com.zlutil.tools.toolpackage.Yield.Dao.YieldBlockDao;
 import com.zlutil.tools.toolpackage.Yield.Dao.YieldHeadDao;
+import com.zlutil.tools.toolpackage.Yield.Dao.YieldPatrolDao;
 import com.zlutil.tools.toolpackage.Yield.dto.YieldBlockDTO;
 import com.zlutil.tools.toolpackage.Yield.entity.YieldBlockEntity;
 import com.zlutil.tools.toolpackage.Yield.entity.YieldHeadEntity;
 
+import com.zlutil.tools.toolpackage.Yield.entity.YieldPatrolEntity;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,26 @@ public class ServiceApplicationTests {
 
     @Autowired
     YieldBlockDao yieldBlockDao;
+
+    @Autowired
+    YieldPatrolDao yieldPatrolDao;
+
+
+    @Test
+    void testBeanUtils() throws IOException {
+        List<YieldPatrolEntity> list = yieldPatrolDao.findAllOvertimeTask();
+        list.stream().forEach(e -> {
+            YieldPatrolEntity yieldPatrolEntity = new YieldPatrolEntity();
+            BeanUtils.copyProperties(e, yieldPatrolEntity, "id");
+            System.out.println(JSON.toJSONString(yieldPatrolEntity));
+        });
+    }
+
+    @Test
+    void findOvertimeTask() throws IOException {
+        List<YieldPatrolEntity> list = yieldPatrolDao.findAllOvertimeTask();
+        System.out.println(JSON.toJSONString(list));
+    }
 
     @Test
     void test() throws IOException {
@@ -55,7 +77,7 @@ public class ServiceApplicationTests {
     }
 
     @Test
-    //增加田长信息
+        //增加田长信息
     void addYieldHead() throws IOException {
         for (int i = 0; i < 10; i++) {
             YieldHeadEntity yieldHeadEntity = new YieldHeadEntity();

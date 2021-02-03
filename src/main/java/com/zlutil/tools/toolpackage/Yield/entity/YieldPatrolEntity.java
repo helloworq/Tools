@@ -29,8 +29,12 @@ public class YieldPatrolEntity {
     private Date patrolTime;
     //巡查人
     private String patrolMan;
-    //经办人(此字段挂钩patrolMan的领导，从村级田长到县级田长)
+    //经办人(此字段挂钩patrolMan的领导，从村级田长逐级到县级田长)
     private String agent;
     //从创建开始到处理前间隔的天数
     private Integer periodTime;
+    //处理状态(0->未处理,1->待办,2->办结)
+    private Integer handleStatus;
+    //每一级的操作需要留痕，每一级都有权限处理任务，故设置一个任务id字段关联相关任务，达到链式处理效果
+    private Long prevTaskId;
 }
