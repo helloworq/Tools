@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 8888
 spring:
   profiles:
     active: '@spring.profiles.active@' #此处由maven的环境选择决

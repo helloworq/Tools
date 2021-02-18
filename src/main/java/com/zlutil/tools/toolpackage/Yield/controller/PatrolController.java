@@ -34,7 +34,7 @@ public class PatrolController {
 
     @PostMapping("v1/uploadYieldBlockBasicInfo")
     @ApiOperation(value = "村级副田长上传巡查日志信息")
-    public ResponseData findYieldBlockBasicInfo(@RequestBody @ApiParam(value = "图块信息") YieldBlockBasicInfo yieldBlockBasicInfo) {
+    public ResponseData uploadYieldBlockBasicInfo(@RequestBody @ApiParam(value = "图块信息") YieldBlockBasicInfo yieldBlockBasicInfo) {
         return ResponseUtil.success(yieldService.uploadYieldBlockBasicInfo(yieldBlockBasicInfo));
     }
 
@@ -50,7 +50,7 @@ public class PatrolController {
         return ResponseUtil.success(yieldService.getUnhandleSubordinateUploadTask(userId));
     }
 
-    @GetMapping("v1/getUnhandleSubordinateUploadTask")
+    @GetMapping("v1/concludeTask")
     @ApiOperation(value = "办结指定任务")
     public ResponseData concludeTask(@RequestParam @ApiParam(value = "任务ID") String taskId) {
         return ResponseUtil.success(yieldService.concludeTask(taskId));
@@ -60,5 +60,14 @@ public class PatrolController {
     @ApiOperation(value = "获取用户的待处理任务")
     public ResponseData getPendingTask(@RequestParam @ApiParam(value = "用户ID") String userId) {
         return ResponseUtil.success(yieldService.getPendingTask(userId));
+    }
+
+    @GetMapping("v1/appointTask")
+    @ApiOperation(value = "上级指派任务给下级")
+    public ResponseData appointTask(@RequestParam @ApiParam(value = "领导ID") String leaderId,
+                                    @RequestParam @ApiParam(value = "下级ID") String subordinateId,
+                                    @RequestParam @ApiParam(value = "任务ID") String taskId,
+                                    @RequestParam @ApiParam(value = "领导意见") String leaderSuggestion) {
+        return ResponseUtil.success(yieldService.appointTask(leaderId, subordinateId, taskId, leaderSuggestion));
     }
 }

@@ -22,9 +22,9 @@ public class YieldPatrolEntity {
     //地块id
     private String yieldId;
     //原利用情况
-    private Integer originalUtilization;
+    private String originalUtilization;
     //现利用情况
-    private Integer nowlUtilization;
+    private String nowlUtilization;
     //巡查时间
     private Date patrolTime;
     //巡查人
@@ -37,4 +37,8 @@ public class YieldPatrolEntity {
     private Integer handleStatus;
     //每一级的操作需要留痕，每一级都有权限处理任务，故设置一个任务id字段关联相关任务，达到链式处理效果
     private Long prevTaskId;
+    //领导指派时填入的意见或者说是任务说明
+    private String leaderSuggestion;
+    //是否是指派任务(0->不是，1->是)
+    private Integer isAppointTask;
 }

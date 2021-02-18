@@ -1,6 +1,5 @@
 package com.zlutil.tools.toolpackage.Yield.service;
 
-import com.alibaba.fastjson.JSON;
 import com.zlutil.tools.toolpackage.Yield.Dao.YieldBlockDao;
 import com.zlutil.tools.toolpackage.Yield.Dao.YieldHeadDao;
 import com.zlutil.tools.toolpackage.Yield.Dao.YieldPatrolDao;
@@ -12,12 +11,10 @@ import com.zlutil.tools.toolpackage.Yield.entity.YieldPatrolEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringBootVersion;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -111,14 +108,17 @@ public class YieldService {
             yieldPatrolEntity.setTown(yieldHeadEntity.getTown());
             yieldPatrolEntity.setVillage(yieldHeadEntity.getVillage());
             yieldPatrolEntity.setYieldId(yieldBlockBasicInfo.getId().toString());
-            yieldPatrolEntity.setOriginalUtilization(originYieldBlockEntity.getUtilization());
-            yieldPatrolEntity.setNowlUtilization(yieldBlockBasicInfo.getUtilization());
+            yieldPatrolEntity.setOriginalUtilization(originYieldBlockEntity.getSpecificUtilization());
+            yieldPatrolEntity.setNowlUtilization(yieldBlockBasicInfo.getSpecificUtilization());
             yieldPatrolEntity.setPatrolTime(new Date());
             yieldPatrolEntity.setPatrolMan(blockManagerId);
             yieldPatrolEntity.setPeriodTime(0);
             yieldPatrolEntity.setHandleStatus(0);
+            yieldPatrolEntity.setIsAppointTask(0);
             //发给直属上级
             yieldPatrolEntity.setAgent(yieldHeadDao.findLeader(blockManagerId));
+            //地块气泡标记为红色
+            yieldBlockBasicInfo.setBubbleColor(1);
             yieldPatrolDao.save(yieldPatrolEntity);
         }
         YieldBlockEntity yieldBlockEntity = new YieldBlockEntity();
@@ -146,17 +146,17 @@ public class YieldService {
      * 上传任务的每一级都需要留痕
      */
     public YieldPatrolEntity submitUnableHandleTask(YieldPatrolEntity entity, String taskId, Boolean isTimerInvoke) {
-        YieldPatrolEntity element;
-        if (!isTimerInvoke) {
-            element = yieldPatrolDao.findById(Long.valueOf(taskId)).get();
-        } else {
-            element = entity;
+        YieldPatrolEntity element = isTimerInvoke ? entity : yieldPatrolDao.findById(Long.valueOf(taskId)).get();
+        //如果是指派任务超时直接将任务提交给沈科
+        String leader = yieldHeadDao.findLeader(element.getAgent());
+        if (Objects.isNull(leader)) {
+            throw new RuntimeException("无法提交任务，无法找到当前用户的上一级领导");
         }
         //创建上传任务
         YieldPatrolEntity patrolEntity = new YieldPatrolEntity();
         BeanUtils.copyProperties(element, patrolEntity, "id");
         patrolEntity.setPatrolMan(element.getAgent());//巡查对象变为经办人
-        patrolEntity.setAgent(yieldHeadDao.findLeader(element.getAgent()));
+        patrolEntity.setAgent(element.getIsAppointTask() == 1 ? "0" : leader);
         patrolEntity.setPatrolTime(new Date());
         patrolEntity.setPeriodTime(0);
         patrolEntity.setPrevTaskId(element.getId());
@@ -165,6 +165,19 @@ public class YieldService {
         //修改自己的任务信息将当前任务的状态修改为"已办事宜" (留痕)
         element.setHandleStatus(1);
         return yieldPatrolDao.save(element);
+    }
+
+    /**
+     * 上级指定任务给下级(超时任务直接上交给沈科)
+     */
+    public YieldPatrolEntity appointTask(String leaderId, String subordinateId, String taskId, String leaderSuggestion) {
+        YieldPatrolEntity yieldPatrolEntity = new YieldPatrolEntity();
+        BeanUtils.copyProperties(yieldPatrolDao.findById(Long.valueOf(taskId)).get(), yieldPatrolEntity);
+        yieldPatrolEntity.setIsAppointTask(1);
+        yieldPatrolEntity.setLeaderSuggestion(leaderSuggestion);
+        yieldPatrolEntity.setPatrolMan(subordinateId);
+        yieldPatrolEntity.setAgent(leaderId);
+        return yieldPatrolDao.save(yieldPatrolEntity);
     }
 
     /**
