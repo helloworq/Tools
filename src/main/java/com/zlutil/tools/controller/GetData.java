@@ -1,8 +1,6 @@
 package com.zlutil.tools.controller;
 
-
 import cn.hutool.core.lang.UUID;
-import cn.hutool.core.util.ZipUtil;
 import com.alibaba.fastjson.JSON;
 import com.zlutil.tools.toolpackage.Feign.ImsRestConfig;
 import com.zlutil.tools.toolpackage.JavaBasic.MyIO.MyIOUtil;
@@ -10,6 +8,7 @@ import com.zlutil.tools.toolpackage.JavaBasic.NetTools.DownLoad_My_Configs;
 import com.zlutil.tools.toolpackage.ResponseUtil.ResponseData;
 import com.zlutil.tools.toolpackage.ResponseUtil.ResponseUtil;
 import com.zlutil.tools.toolpackage.ZipReader.FileEntity;
+import com.zlutil.tools.toolpackage.aop.Cut;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpResponse;
@@ -26,11 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.nio.charset.Charset;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -73,15 +68,18 @@ public class GetData {
         return ResponseUtil.success(imsRestConfig.getIndexValueQuery());
     }
 
+    @Cut(value = "大腿挂件")
     @PostMapping("/getData")
     public ResponseData getData(MultipartFile file) throws IOException {
-        if (Objects.isNull(file)) {
-            return ResponseUtil.fail("null");
-        }
-        File fileNew = ZipUtil.unzip(file.getInputStream(), new File(unzipPath + getFilename(file.getOriginalFilename())), Charset.forName("GBK"));
-        file.getInputStream().close();
 
-        return ResponseUtil.success(readZipInfo(fileNew.getPath()));
+        return ResponseUtil.success("ss");
+//        if (Objects.isNull(file)) {
+//            return ResponseUtil.fail("null");
+//        }
+//        File fileNew = ZipUtil.unzip(file.getInputStream(), new File(unzipPath + getFilename(file.getOriginalFilename())), Charset.forName("GBK"));
+//        file.getInputStream().close();
+//
+//        return ResponseUtil.success(readZipInfo(fileNew.getPath()));
     }
 
 
@@ -135,7 +133,7 @@ public class GetData {
     }
 
     public String removePrefix(String filename) {
-        return filename.replace(unzipPath,"");
+        return filename.replace(unzipPath, "");
     }
 
 //    @ApiOperation(value = "更新/上传动态")
@@ -163,7 +161,6 @@ public class GetData {
                        @RequestParam("fileSize") @ApiParam(value = "文件大小", required = true) String fileSize,
                        @RequestParam("position") @ApiParam(value = "文件位置", required = true) String position,
                        @RequestParam("fileName") @ApiParam(value = "文件名", required = true) String fileName) throws IOException {
-        System.out.println("文件MD5: " + fileMd5);
 
         FileInfo fileInfo = JSON.parseObject(JSON.toJSONString(redisTemplate.opsForValue().get(fileMd5)), FileInfo.class);
 
@@ -184,8 +181,6 @@ public class GetData {
             if (!filePrev.exists()) {
                 filePrev.createNewFile();
             }
-            System.out.println(filePrev.getPath());
-            //File filePrev = FileUtil.createTempFile(fileMd5, MyIOUtil.getFileSuffix(fileName), new File(uploadPath), false);
             RandomAccessFile randomAccessFile = new RandomAccessFile(filePrev.getPath(), "rw");
 
             randomAccessFile.seek(Long.parseLong(position));

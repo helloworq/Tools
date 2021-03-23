@@ -1,19 +1,14 @@
 package com.zlutil.tools;
 
-import com.zlutil.tools.toolpackage.HotBoot.ZJPFileListener;
-import com.zlutil.tools.toolpackage.HotBoot.ZJPFileMonitor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-import javax.persistence.Entity;
-
 @EnableScheduling
 @EnableSwagger2
-@SpringBootApplication
-@EntityScan("com.zlutil.tools.toolpackage.*")
+@SpringBootApplication()
+//@EntityScan("com.zlutil.tools.toolpackage.*")
 public class ToolsApplication {
 
     public static void main(String[] args) {

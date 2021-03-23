@@ -3,7 +3,7 @@ spring:
     url: jdbc:oracle:thin:@127.0.0.1/ORCL
     username: DIST
     password: 12345678
-    driver-class-name: oracle.jdbc.OracleDriver
+    driver-class-name: oracle.jdbc.driver.OracleDriver
   jpa:
     database: oracle
     show-sql: true
@@ -27,8 +27,8 @@ spring:
     timeout: 10000
   servlet:
     multipart:
-      max-file-size: 100MB
-      max-request-size: 100MB
+      max-file-size: 700MB
+      max-request-size: 700MB
   elasticsearch:
     rest:
       uris: http//localhost:9200
@@ -72,3 +72,8 @@ es:
   host: localhost
   port: 9200
   scheme: http
+
+topic:
+  - 以
+  - 而
+  - 三

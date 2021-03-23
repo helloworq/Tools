@@ -1,14 +1,14 @@
 package com.zlutil.tools.toolpackage.JavaBasic;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.io.IOException;
 
 
 public class index {
     public static void main(String[] args) throws Exception {
-
+        String a= "\"";
+        System.out.println(a);
+    }
+}
 /*
         TreeNode head=new TreeNode();
         TreeUntis treeUntis=new TreeUntis();
@@ -122,45 +122,45 @@ public class index {
 
 */
 
-        String originFilePath = "C:\\Users\\12733\\AppData\\Local\\Packages\\Microsoft.Windows.ContentDeliveryManager_cw5n1h2txyewy\\LocalState\\Assets";
-        //小程序，从Windows聚焦的目录里提取所有文件到指定目录下，并且加上.jpg后缀
-        String TargetfilePath = "C:\\Users\\12733\\Desktop\\Windows聚焦图片";
-        File file = new File(originFilePath);
-        int order = 0;//完成序号
-        //获取目录下所有文件的文件名
-        String[] listOfFile = file.list();
-        for (String s : listOfFile) {
-            //renameTo方法会把源文件夹文件删除，故不采用
-            String Targetpath = originFilePath + "\\" + s;
-            InputStream oringDataInputStream = new DataInputStream(new FileInputStream(Targetpath));
-            //全部加上.jpg后缀
-            File Targetfile = new File(TargetfilePath + "\\" + s + ".jpg");
-            if (!Targetfile.exists()) {
-                Targetfile.createNewFile();
-            }
-            OutputStream outputStream = new FileOutputStream(Targetfile);
-            inputStreamWriteToOutputStream(oringDataInputStream, outputStream);
-            System.out.println("已完成第   " + ++order + "   个文件");
-        }
-    }
+//        String originFilePath = "C:\\Users\\12733\\AppData\\Local\\Packages\\Microsoft.Windows.ContentDeliveryManager_cw5n1h2txyewy\\LocalState\\Assets";
+//        //小程序，从Windows聚焦的目录里提取所有文件到指定目录下，并且加上.jpg后缀
+//        String TargetfilePath = "C:\\Users\\12733\\Desktop\\Windows聚焦图片";
+//        File file = new File(originFilePath);
+//        int order = 0;//完成序号
+//        //获取目录下所有文件的文件名
+//        String[] listOfFile = file.list();
+//        for (String s : listOfFile) {
+//            //renameTo方法会把源文件夹文件删除，故不采用
+//            String Targetpath = originFilePath + "\\" + s;
+//            InputStream oringDataInputStream = new DataInputStream(new FileInputStream(Targetpath));
+//            //全部加上.jpg后缀
+//            File Targetfile = new File(TargetfilePath + "\\" + s + ".jpg");
+//            if (!Targetfile.exists()) {
+//                Targetfile.createNewFile();
+//            }
+//            OutputStream outputStream = new FileOutputStream(Targetfile);
+//            inputStreamWriteToOutputStream(oringDataInputStream, outputStream);
+//            System.out.println("已完成第   " + ++order + "   个文件");
+//        }
+//    }
 
 
 
 
 
 
-
-    List<String> getListNameFomePath(String filePath) {
-        List<String> list = new ArrayList<>();
-        File file = new File(filePath);
-        String[] listOfFile = file.list();
-        //全部加上.jpg后缀
-        for (String s : listOfFile) {
-            File subfile = new File(filePath + "\\" + s);
-            subfile.renameTo(new File(filePath + "\\" + s + ".jpg"));
-        }
-        return list;
-    }
+//
+//    List<String> getListNameFomePath(String filePath) {
+//        List<String> list = new ArrayList<>();
+//        File file = new File(filePath);
+//        String[] listOfFile = file.list();
+//        //全部加上.jpg后缀
+//        for (String s : listOfFile) {
+//            File subfile = new File(filePath + "\\" + s);
+//            subfile.renameTo(new File(filePath + "\\" + s + ".jpg"));
+//        }
+//        return list;
+//    }
 
 
     /**
@@ -170,17 +170,17 @@ public class index {
      * @param output
      * @throws IOException
      */
-    public static void inputStreamWriteToOutputStream(InputStream input, OutputStream output) throws IOException {
-        int index;
-        byte[] bytes = new byte[1024];
-        while ((index = input.read(bytes)) != -1) {
-            output.write(bytes, 0, index);
-            output.flush();
-        }
-        input.close();
-        output.close();
-    }
-}
+//    public static void inputStreamWriteToOutputStream(InputStream input, OutputStream output) throws IOException {
+//        int index;
+//        byte[] bytes = new byte[1024];
+//        while ((index = input.read(bytes)) != -1) {
+//            output.write(bytes, 0, index);
+//            output.flush();
+//        }
+//        input.close();
+//        output.close();
+//    }
+
 
 
 /*

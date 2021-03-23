@@ -1,10 +1,6 @@
 package com.zlutil.tools.toolpackage.JavaBasic;
 
-import cn.hutool.core.io.FileUtil;
-import com.zlutil.tools.toolpackage.JavaBasic.MyIO.MyIOUtil;
 import com.zlutil.tools.toolpackage.JavaBasic.MyIO.RW_File;
-import io.netty.channel.ChannelInboundHandlerAdapter;
-import lombok.SneakyThrows;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,6 +8,7 @@ import java.util.Arrays;
 
 public class EnumTest {
     public enum direction {WEST, EAST, SOUTH, NORTH}
+    public enum plan {总规, 专规, 详规}
 
     /**
      * 格式相对固定，只需要在id后加上primary key
@@ -28,7 +25,7 @@ public class EnumTest {
                 e.printStackTrace();
             }
         });*/
-        new EnumTest().handleSql(filePath);
+        //new EnumTest().handleSql(filePath);
     }
 
     /**
