@@ -1,5 +1,6 @@
 package com.zlutil.tools.controller;
 
+import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.lang.UUID;
 import com.alibaba.fastjson.JSON;
 import com.zlutil.tools.toolpackage.Feign.ImsRestConfig;
@@ -8,7 +9,6 @@ import com.zlutil.tools.toolpackage.JavaBasic.NetTools.DownLoad_My_Configs;
 import com.zlutil.tools.toolpackage.ResponseUtil.ResponseData;
 import com.zlutil.tools.toolpackage.ResponseUtil.ResponseUtil;
 import com.zlutil.tools.toolpackage.ZipReader.FileEntity;
-import com.zlutil.tools.toolpackage.aop.Cut;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpResponse;
@@ -18,14 +18,19 @@ import org.apache.http.impl.client.HttpClients;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -68,11 +73,22 @@ public class GetData {
         return ResponseUtil.success(imsRestConfig.getIndexValueQuery());
     }
 
-    @Cut(value = "大腿挂件")
-    @PostMapping("/getData")
-    public ResponseData getData(MultipartFile file) throws IOException {
+    //@Cut(value = "大腿挂件")
+    @GetMapping(value = "/getData", consumes = MediaType.ALL_VALUE)
+    public void getData(HttpServletResponse response) throws IOException {
+        String path="C:\\Users\\12733\\Desktop\\d.txt";
+        File file=new File(path);
 
-        return ResponseUtil.success("ss");
+
+        response.setContentType("application/force-download");
+        response.addHeader("Content-Disposition", "attachment;filename=privilege.json");
+        response.setContentLength((int) file.length());
+        ServletOutputStream outputStream = response.getOutputStream();
+        outputStream.write(FileUtil.readBytes(file));
+        outputStream.close();
+
+//        response.getOutputStream().write(FileUtil.readBytes(file));
+//        response.getOutputStream().close();
 //        if (Objects.isNull(file)) {
 //            return ResponseUtil.fail("null");
 //        }
@@ -168,6 +184,7 @@ public class GetData {
             RandomAccessFile randomAccessFile = new RandomAccessFile(fileInfo.getFilePath(), "rw");
             if (randomAccessFile.length() == Long.parseLong(fileSize)) {
                 randomAccessFile.close();//文件已完整存储
+                //TODO 将文件信息持久化进数据库
                 return;
             } else {
                 randomAccessFile.seek(Long.parseLong(position));
@@ -209,11 +226,10 @@ public class GetData {
     }
 
     @PostMapping("/download")
-    public void download(@RequestParam("fileMd5") @ApiParam(value = "文件MD5值", required = true) String fileMd5,
-                         @RequestParam("fileSize") @ApiParam(value = "上传文件大小", required = true) String fileSize,
-                         HttpServletResponse response) throws IOException {
-        System.out.println("请求文件MD5: " + fileMd5);
-        int byteLength = 1024 * 1024;
+    public byte[] download(@RequestParam("fileMd5") @ApiParam(value = "文件MD5值", required = true) String fileMd5,
+                           @RequestParam("fileSize") @ApiParam(value = "已下载文件大小", required = true) String fileSize) throws IOException {
+        System.out.println("请求文件MD5: " + fileMd5 + "  " + fileSize);
+        int byteLength = 1024 * 1024;//1Mb
         FileInfo fileInfo = JSON.parseObject(JSON.toJSONString(redisTemplate.opsForValue().get(fileMd5)), FileInfo.class);
         String filePath = fileInfo.getFilePath();
         RandomAccessFile randomAccessFile = new RandomAccessFile(filePath, "r");
@@ -222,9 +238,8 @@ public class GetData {
         byte[] bytes = new byte[(int) (Math.min((randomAccessFile.length() - Long.parseLong(fileSize)), byteLength))];
         randomAccessFile.read(bytes);
 
-        response.getOutputStream().write(bytes);
-
         randomAccessFile.close();
+        return bytes;
     }
 
     /**
@@ -262,6 +277,7 @@ public class GetData {
             , long end
             , long threadNum) {
         try {
+            long startTime = System.currentTimeMillis();
             HttpClient httpClient = HttpClients.createDefault();
             HttpGet httpGet = new HttpGet(url);
             httpGet.addHeader("User-Agent", DownLoad_My_Configs.httpGet_Header);
@@ -271,13 +287,13 @@ public class GetData {
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             response.getEntity().writeTo(outputStream);//转换成输出流以便直接获取字节
 
-            RandomAccessFile randomAccessFile = new RandomAccessFile(new File(targetFilepath), "w");
+            RandomAccessFile randomAccessFile = new RandomAccessFile(new File(targetFilepath), "rw");
             randomAccessFile.seek(start);
             randomAccessFile.write(outputStream.toByteArray());
 
             ++count;
             if (count == threadNum) {
-                //System.out.println("远程文件异步下载耗时: " + (System.currentTimeMillis() - startTime) + "  当前线程数: " + threadNum);
+                System.out.println("远程文件异步下载耗时: " + (System.currentTimeMillis() - startTime) + "  当前线程数: " + threadNum);
             }
 
             outputStream.close();
@@ -298,5 +314,9 @@ public class GetData {
                 .findFirst()
                 .get()
                 .getValue());
+    }
+
+    public void t(){
+        ClassLoader classLoader=ClassLoader.getSystemClassLoader();
     }
 }

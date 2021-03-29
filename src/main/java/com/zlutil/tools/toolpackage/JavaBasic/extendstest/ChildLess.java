@@ -2,11 +2,8 @@ package com.zlutil.tools.toolpackage.JavaBasic.extendstest;
 
 import java.util.Arrays;
 
-public class Child extends Base {
-    public String tag;
-    public String mark;
-
-    public Child(){
+public class ChildLess extends Base{
+    public ChildLess(){
         super("mark","tag");
     }
 

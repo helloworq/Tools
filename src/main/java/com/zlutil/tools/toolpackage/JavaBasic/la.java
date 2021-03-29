@@ -1,9 +1,6 @@
 package com.zlutil.tools.toolpackage.JavaBasic;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.zlutil.tools.toolpackage.JavaBasic.MyIO.MyIOUtil;
-import com.zlutil.tools.toolpackage.JavaBasic.MyIO.RW_File;
 import com.zlutil.tools.toolpackage.JavaBasic.NetTools.DownLoad_My_Configs;
 import lombok.Data;
 import org.apache.http.HttpResponse;
@@ -14,8 +11,6 @@ import org.apache.http.impl.client.HttpClients;
 import java.io.*;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -29,8 +24,7 @@ class Need {
     private String url;
     private String name;
 
-    @Override
-    public boolean equals(Object obj) {
+    public boolean equals(Need obj) {
         Need p = (Need) obj;
         return this.name.equals(p.name) && this.url.equals(p.url) && this.layerTag.equals(p.layerTag);
     }
@@ -42,42 +36,43 @@ public class la {
     public long startTime = System.currentTimeMillis();
 
     public static void main(String[] args) throws IOException, InterruptedException {
-
-        String data = RW_File.read_txt("C:\\Users\\12733\\Desktop\\新建文本文档 (10).txt");
-        JSONObject jsonObject = JSON.parseObject(data);
-        JSONObject jsonObjectData = jsonObject.getJSONObject("data");
-
-        List<Map> listMap = jsonObjectData.getJSONArray("mapServices").toJavaList(Map.class);
-        List<Map> listTopic = jsonObjectData.getJSONArray("topic").toJavaList(Map.class);
-
-        listTopic.stream()
-                .filter(ele -> !ele.get("des").toString().equals(""))
-                .filter(ele -> ele.get("type").toString().equals("topic"))
-                .filter(ele -> !ele.get("subIds").toString().equals("[]"))
-                .map(ele -> ele.get("subIds").toString().replace("[\"", "").replace("\"]", ""))
-                .map(ele -> {
-                    return listTopic.stream()
-                            .filter(obj -> obj.get("id").toString().equals(ele))
-                            .filter(obj -> obj.get("type").toString().equals("layer"))
-                            .findFirst().orElse(null);
-
-                })
-                .map(ele -> {
-                    Need need = null;
-                    String serviceUid = ele.get("serviceUid").toString();
-                    Map map = listMap.stream()
-                            .filter(obj -> obj.get("serviceName").toString().equals(serviceUid))
-                            .findFirst().orElse(null);
-                    if (Objects.nonNull(map)) {
-                        need = new Need();
-                        need.setName(serviceUid);
-                        need.setUrl(map.get("url").toString());
-                        need.setLayerTag(ele.get("layerTag").toString());
-                    }
-                    return need;
-                })
-                .filter(Objects::nonNull)
-                .forEach(System.out::println);
+        String a="{ \"loginName\": \"yduser\", \"loginPassword\": \"\", \"systemCode\": \"c12df1bd-d839-4a32-9f3b-04dcc40e4f83\"}";
+        System.out.println(a);
+//        String data = RW_File.read_txt("C:\\Users\\12733\\Desktop\\新建文本文档 (10).txt");
+//        JSONObject jsonObject = JSON.parseObject(data);
+//        JSONObject jsonObjectData = jsonObject.getJSONObject("data");
+//
+//        List<Map> listMap = jsonObjectData.getJSONArray("mapServices").toJavaList(Map.class);
+//        List<Map> listTopic = jsonObjectData.getJSONArray("topic").toJavaList(Map.class);
+//
+//        listTopic.stream()
+//                .filter(ele -> !ele.get("des").toString().equals(""))
+//                .filter(ele -> ele.get("type").toString().equals("topic"))
+//                .filter(ele -> !ele.get("subIds").toString().equals("[]"))
+//                .map(ele -> ele.get("subIds").toString().replace("[\"", "").replace("\"]", ""))
+//                .map(ele -> {
+//                    return listTopic.stream()
+//                            .filter(obj -> obj.get("id").toString().equals(ele))
+//                            .filter(obj -> obj.get("type").toString().equals("layer"))
+//                            .findFirst().orElse(null);
+//
+//                })
+//                .map(ele -> {
+//                    Need need = null;
+//                    String serviceUid = ele.get("serviceUid").toString();
+//                    Map map = listMap.stream()
+//                            .filter(obj -> obj.get("serviceName").toString().equals(serviceUid))
+//                            .findFirst().orElse(null);
+//                    if (Objects.nonNull(map)) {
+//                        need = new Need();
+//                        need.setName(serviceUid);
+//                        need.setUrl(map.get("url").toString());
+//                        need.setLayerTag(ele.get("layerTag").toString());
+//                    }
+//                    return need;
+//                })
+//                .filter(Objects::nonNull)
+//                .forEach(System.out::println);
     }
 
 

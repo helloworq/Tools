@@ -48,7 +48,7 @@ public class EchoServer {
 
             ChannelFuture f = b.bind().sync();//定义未来事件处理机制
             System.out.println(EchoServer.class.getName() +
-                    " started and listening for connections on " + f.channel().localAddress());
+                    " 开始监听，地址: " + f.channel().localAddress());
             f.channel().closeFuture().sync();
         } finally {
             group.shutdownGracefully().sync();
