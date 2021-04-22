@@ -44,14 +44,13 @@ public class EchoClient {
                     .handler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         public void initChannel(SocketChannel ch) throws Exception {
-                            ch.pipeline().addLast(
-                                    new EchoClientHandler());
+                            ch.pipeline().addLast(new EchoClientHandler());
                         }
                     });
             ChannelFuture f = b.connect().sync();
             f.channel().closeFuture().sync();
         } finally {
-            group.shutdownGracefully().sync();
+            //group.shutdownGracefully().sync();
         }
     }
 }

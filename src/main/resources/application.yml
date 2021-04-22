@@ -6,6 +6,7 @@ spring:
 
 self:
   shareFolder: "file:E:\\迅雷下载\\ShareFolder\\"
+  enable: true
 
 
 

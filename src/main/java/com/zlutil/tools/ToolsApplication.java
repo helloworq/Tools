@@ -7,7 +7,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @EnableScheduling
 @EnableSwagger2
-@SpringBootApplication()
+@SpringBootApplication
 //@EntityScan("com.zlutil.tools.toolpackage.*")
 public class ToolsApplication {
 

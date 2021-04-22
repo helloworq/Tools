@@ -47,8 +47,7 @@ public class EchoServer {
                     });
 
             ChannelFuture f = b.bind().sync();//定义未来事件处理机制
-            System.out.println(EchoServer.class.getName() +
-                    " 开始监听，地址: " + f.channel().localAddress());
+            System.out.println("服务器开始监听，地址: " + f.channel().localAddress());
             f.channel().closeFuture().sync();
         } finally {
             group.shutdownGracefully().sync();

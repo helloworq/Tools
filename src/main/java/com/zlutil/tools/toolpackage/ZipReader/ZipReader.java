@@ -1,5 +1,6 @@
 package com.zlutil.tools.toolpackage.ZipReader;
 
+import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.ZipUtil;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,14 +15,16 @@ public class ZipReader {
     public final static String unzipPath = "C:\\可视化资源文件列表\\解压目录\\";
 
     public static void main(String[] args) {
-        try {
-            String a="aaa=bbb";
-            int b=a.indexOf("=");
-            System.out.println(a.substring(b));
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        File file=new File("C:\\Users\\12733\\Desktop\\目录\\测试.zip");
+
+        //FileUtil.del("C:\\Users\\12733\\Desktop\\目录\\测试2");
+        File fileUnzipFile = ZipUtil.unzip(file, new File("C:\\Users\\12733\\Desktop\\目录\\"), Charset.forName("GBK"));
+        System.out.println(fileUnzipFile.getPath());
+        String fileUnzipFilePath = fileUnzipFile.getPath() + File.separator + file.getName().split("\\.")[0];
+        System.out.println(fileUnzipFilePath);
+
+        File file1=FileUtil.rename(new File(fileUnzipFilePath), "测试2", false);
+        System.out.println(file1.getPath());
     }
 
     public void readZip() {

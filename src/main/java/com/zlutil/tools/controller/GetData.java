@@ -1,6 +1,5 @@
 package com.zlutil.tools.controller;
 
-import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.lang.UUID;
 import com.alibaba.fastjson.JSON;
 import com.zlutil.tools.toolpackage.Feign.ImsRestConfig;
@@ -9,6 +8,7 @@ import com.zlutil.tools.toolpackage.JavaBasic.NetTools.DownLoad_My_Configs;
 import com.zlutil.tools.toolpackage.ResponseUtil.ResponseData;
 import com.zlutil.tools.toolpackage.ResponseUtil.ResponseUtil;
 import com.zlutil.tools.toolpackage.ZipReader.FileEntity;
+import com.zlutil.tools.toolpackage.aop.StrogeService;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpResponse;
@@ -25,8 +25,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -47,6 +45,9 @@ public class GetData {
     @Autowired
     RedisTemplate<String, Object> redisTemplate;
 
+    @Autowired
+    StrogeService strogeService;
+
     public final static String basePath = "C:\\可视化资源文件列表\\压缩包\\";
     public final static String unzipPath = "C:\\可视化资源文件列表\\解压目录\\";
 
@@ -59,6 +60,9 @@ public class GetData {
 
     @Value("${self.shareFolder}")
     private String shareFolder;
+
+    @Value("${self.enable}")
+    private boolean open = false;
 
     @GetMapping("/getFileListUnderShareFolder")
     public ResponseData getFileListUnderShareFolder() {
@@ -73,31 +77,11 @@ public class GetData {
         return ResponseUtil.success(imsRestConfig.getIndexValueQuery());
     }
 
-    //@Cut(value = "大腿挂件")
     @GetMapping(value = "/getData", consumes = MediaType.ALL_VALUE)
-    public void getData(HttpServletResponse response) throws IOException {
-        String path="C:\\Users\\12733\\Desktop\\d.txt";
-        File file=new File(path);
-
-
-        response.setContentType("application/force-download");
-        response.addHeader("Content-Disposition", "attachment;filename=privilege.json");
-        response.setContentLength((int) file.length());
-        ServletOutputStream outputStream = response.getOutputStream();
-        outputStream.write(FileUtil.readBytes(file));
-        outputStream.close();
-
-//        response.getOutputStream().write(FileUtil.readBytes(file));
-//        response.getOutputStream().close();
-//        if (Objects.isNull(file)) {
-//            return ResponseUtil.fail("null");
-//        }
-//        File fileNew = ZipUtil.unzip(file.getInputStream(), new File(unzipPath + getFilename(file.getOriginalFilename())), Charset.forName("GBK"));
-//        file.getInputStream().close();
-//
-//        return ResponseUtil.success(readZipInfo(fileNew.getPath()));
+    public List<String> getData(@RequestParam("id") String picIds) throws IOException {
+        //picId转Url
+        return strogeService.createUrlByPicId(new ArrayList<>(Arrays.asList(picIds.split(","))));
     }
-
 
     FileEntity readZipInfo(String filePath) {
 
@@ -242,6 +226,7 @@ public class GetData {
         return bytes;
     }
 
+
     /**
      * 处理下载(仅供客户端下载使用，网页端禁止调用)
      *
@@ -316,7 +301,7 @@ public class GetData {
                 .getValue());
     }
 
-    public void t(){
-        ClassLoader classLoader=ClassLoader.getSystemClassLoader();
+    public void t() {
+        ClassLoader classLoader = ClassLoader.getSystemClassLoader();
     }
 }
