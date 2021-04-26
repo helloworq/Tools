@@ -11,9 +11,14 @@
     <groupId>com.zlutil</groupId>
     <artifactId>tools</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>tools</name>
+    <name>util</name>
     <description>Demo project for Spring Boot</description>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>server</module>
+        <module>myutil</module>
+    </modules>
 
     <properties>
         <java.version>1.8</java.version>
@@ -24,290 +29,13 @@
         <httpclient.version>4.5.12</httpclient.version>
         <github.global.server>github</github.global.server>
         <feign.version>10.5.1</feign.version>
+        <maven.compiler.plugin.version>3.6.0</maven.compiler.plugin.version>
+        <mavne.surefire.plugin.version>2.19.1</mavne.surefire.plugin.version>
+        <maven-war-plugin.version>2.6</maven-war-plugin.version>
     </properties>
 
-    <dependencies>
-        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
-        <dependency>
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi-scratchpad</artifactId>
-            <version>4.1.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi</artifactId>
-            <version>4.1.2</version>
-        </dependency>
-        <!--jodconverter 本地支持包 -->
-        <!-- https://mvnrepository.com/artifact/org.jodconverter/jodconverter-local -->
-        <dependency>
-            <groupId>org.jodconverter</groupId>
-            <artifactId>jodconverter-spring-boot-starter</artifactId>
-            <version>4.2.2</version>
-        </dependency>
-        <!--jodconverter 本地支持包 -->
-        <!-- https://mvnrepository.com/artifact/org.jodconverter/jodconverter-local -->
-        <dependency>
-            <groupId>org.jodconverter</groupId>
-            <artifactId>jodconverter-local</artifactId>
-            <version>4.2.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-        </dependency>
-        <!--引入redis支持-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-mongodb</artifactId>
-        </dependency>
-        <!--引入AOP依赖-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aop</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.spring4all</groupId>
-            <artifactId>swagger-spring-boot-starter</artifactId>
-            <version>${swagger.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.12</version>
-            <optional>true</optional>
-        </dependency>        <!--引入json支持-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>${fastjson.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>net.coobird</groupId>
-            <artifactId>thumbnailator</artifactId>
-            <version>${thumbnailator.version}</version>
-        </dependency>
-        <!--<dependency>
-            <groupId>e-iceblue</groupId>
-            <artifactId>spire.doc.free</artifactId>
-            <version>${spire.doc.free.version}</version>
-        </dependency>-->
-        <!--<dependency>
-            <groupId>com.github.adedayo.intellij.sdk</groupId>
-            <artifactId>forms_rt</artifactId>
-            <version>142.1</version>
-        </dependency>-->
-        <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-            <version>${httpclient.version}</version>
-        </dependency>
-        <!--增加WebSocket依赖-->
-        <dependency>
-            <groupId>com.oracle</groupId>
-            <artifactId>ojdbc6</artifactId>
-            <version>11.2.0.3</version>
-        </dependency>
-        <!-- mysql -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.17</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-websocket</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.junit.vintage</groupId>
-                    <artifactId>junit-vintage-engine</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi-ooxml</artifactId>
-            <version>3.15</version>
-        </dependency>
-        <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-all</artifactId>
-            <version>5.5.1</version>
-        </dependency>
-        <!--监控文件夹 使用Commons-io的monitor下的相关类可以处理对文件进行监控-->
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.6</version>
-        </dependency>
-        <!--MDB解析使用-->
-        <dependency>
-            <groupId>com.healthmarketscience.jackcess</groupId>
-            <artifactId>jackcess</artifactId>
-            <version>2.1.7</version>
-        </dependency>
-
-        <!-- feign开始 -->
-        <dependency>
-            <groupId>io.github.openfeign</groupId>
-            <artifactId>feign-core</artifactId>
-            <version>${feign.version}</version>
-        </dependency>
-        <!--Jackson编码处理-->
-        <dependency>
-            <groupId>io.github.openfeign</groupId>
-            <artifactId>feign-jackson</artifactId>
-            <version>${feign.version}</version>
-        </dependency>
-        <!--hystrix 服务降级/熔断-->
-        <dependency>
-            <groupId>io.github.openfeign</groupId>
-            <artifactId>feign-hystrix</artifactId>
-            <version>${feign.version}</version>
-        </dependency>
-        <!--支持JAX-RS的注解处理服务请求-->
-        <dependency>
-            <groupId>io.github.openfeign</groupId>
-            <artifactId>feign-jaxrs2</artifactId>
-            <version>${feign.version}</version>
-        </dependency>
-        <!--使用okhttp进行发送请求-->
-        <dependency>
-            <groupId>io.github.openfeign</groupId>
-            <artifactId>feign-okhttp</artifactId>
-            <version>${feign.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.github.openfeign</groupId>
-            <artifactId>feign-httpclient</artifactId>
-            <version>${feign.version}</version>
-        </dependency>
-        <!--使用slf4j打印日志-->
-        <dependency>
-            <groupId>io.github.openfeign</groupId>
-            <artifactId>feign-slf4j</artifactId>
-            <version>${feign.version}</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.freemarker/freemarker -->
-        <dependency>
-            <groupId>org.freemarker</groupId>
-            <artifactId>freemarker</artifactId>
-            <version>2.3.28</version>
-        </dependency>
-
-        <!--netty-->
-        <!-- https://mvnrepository.com/artifact/io.netty/netty-all -->
-        <dependency>
-            <groupId>io.netty</groupId>
-            <artifactId>netty-all</artifactId>
-            <version>4.0.42.Final</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.protobuf</groupId>
-            <artifactId>protobuf-java</artifactId>
-            <version>3.14.0</version>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/com.jacob/jacob -->
-        <!-- https://mvnrepository.com/artifact/net.sf.jacob-project/jacob -->
-        <!-- https://mvnrepository.com/artifact/org.jfree/jfreechart -->
-        <dependency>
-            <groupId>org.jfree</groupId>
-            <artifactId>jfreechart</artifactId>
-            <version>1.0.19</version>
-        </dependency>
-        <dependency>
-            <groupId>io.minio</groupId>
-            <artifactId>minio</artifactId>
-            <version>8.0.3</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.apache.pdfbox/pdfbox -->
-        <dependency>
-            <groupId>org.apache.pdfbox</groupId>
-            <artifactId>pdfbox</artifactId>
-            <version>2.0.21</version>
-        </dependency>
-
-    </dependencies>
 
     <!--============== 配置Artifactory私服START =============== -->
-    <repositories>
-        <!--<repository>
-            <id>jarhome</id>
-            &lt;!&ndash;将"zhengjiaao"改为 你的github用户名&ndash;&gt;
-            &lt;!&ndash;<url>https://raw.github.com/zhengjiaao/mvn-repo/master</url>&ndash;&gt;
-            <url>https://raw.github.com/helloworq/jarhome/main</url>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-            </snapshots>
-        </repository>-->
-
-      <!--  <repository>
-            <id>maven-repo-master</id>
-            <url>https://github.com/helloworq/jarhome/</url>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-            </snapshots>
-        </repository>
-
-        <repository>
-            <id>com.e-iceblue</id>
-            <url>http://repo.e-iceblue.cn/repository/maven-public/</url>
-        </repository>
-        <repository>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <id>distcentral</id>
-            <name>libs-release</name>
-            <url>http://elb-791125809.cn-northwest-1.elb.amazonaws.com.cn:5336/artifactory/libs-release</url>
-        </repository>
-        <repository>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-            </snapshots>
-            <id>distsnapshots</id>
-            <name>libs-snapshot</name>
-            <url>http://elb-791125809.cn-northwest-1.elb.amazonaws.com.cn:5336/artifactory/libs-snapshot</url>
-        </repository>-->
-    </repositories>
     <pluginRepositories>
         <pluginRepository>
             <snapshots>
@@ -318,7 +46,7 @@
             <url>http://elb-791125809.cn-northwest-1.elb.amazonaws.com.cn:5336/artifactory/libs-release</url>
         </pluginRepository>
         <pluginRepository>
-            <snapshots />
+            <snapshots/>
             <id>distsnapshots</id>
             <name>libs-snapshot</name>
             <url>http://elb-791125809.cn-northwest-1.elb.amazonaws.com.cn:5336/artifactory/libs-snapshot</url>
@@ -355,51 +83,24 @@
                 </includes>
             </resource>
         </resources>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.flywaydb</groupId>
-                <artifactId>flyway-maven-plugin</artifactId>
-                <version>5.0.3</version>
-            </plugin>
-         <!--   <plugin>
-                <artifactId>maven-deploy-plugin</artifactId>
-                <version>2.8.1</version>
-                <configuration>
-                    <altDeploymentRepository>internal.repo::default::file://${project.build.directory}/jarhome</altDeploymentRepository>
-                </configuration>
-            </plugin>
 
+
+        <plugins>
+            <!--maven的编译插件-->
             <plugin>
-                <groupId>com.github.github</groupId>
-                <artifactId>site-maven-plugin</artifactId>
-                <version>0.12</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.plugin.version}</version>
                 <configuration>
-                    <message>Maven artifacts for ${project.version}</message>
-                    <noJekyll>true</noJekyll>
-                    <outputDirectory>${project.build.directory}/jarhome</outputDirectory>
-                    <branch>refs/heads/master</branch>
-                    <includes>
-                        <include>**/*</include>
-                    </includes>
-                    <repositoryName>jarhome</repositoryName>
-                    &lt;!&ndash; 对应github上创建的仓库名称 name &ndash;&gt;
-                    <repositoryOwner>helloworq</repositoryOwner>
-                    &lt;!&ndash; github 仓库所有者 &ndash;&gt;
+                    <!--开发版本-->
+                    <source>${java.version}</source>
+                    <!--.class文件版本-->
+                    <target>${java.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>site</goal>
-                        </goals>
-                        <phase>deploy</phase>
-                    </execution>
-                </executions>
-            </plugin>-->
+            </plugin>
         </plugins>
+
     </build>
     <profiles>
         <profile>

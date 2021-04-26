@@ -1,0 +1,79 @@
+spring:
+  datasource:
+    url: jdbc:oracle:thin:@127.0.0.1/ORCL
+    username: DIST
+    password: 12345678
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+  jpa:
+    database: oracle
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  data:
+    mongodb:
+      database: dist
+      host: 127.0.0.1
+      port: 27017
+      repositories:
+        enabled: true
+  redis:
+    host: localhost
+    jedis:
+      pool:
+        max-idle: 8
+        max-wait: -1
+        min-idle: 0
+    port: 6379
+    timeout: 10000
+  servlet:
+    multipart:
+      max-file-size: 700MB
+      max-request-size: 700MB
+  elasticsearch:
+    rest:
+      uris: http//localhost:9200
+#nacos:
+#  config:
+#    server-addr: 127.0.0.1:8848
+#    enable-remote-sync-config: true
+#    bootstrap:
+#      enable: true
+
+
+
+# 映射实体类
+ims:
+  # 查看指标值固定参数
+  indexValueQuery:
+    system: 可视化体系
+    type: jcl
+    attrs:
+      - id: jcz
+        require: true
+
+
+minio:
+  Url: http://127.0.0.1:9000
+  AccessKey: minioadmin
+  SecretKey: minioadmin
+  BucketName: filebed
+
+dist:
+  minio:
+    config:
+      enabled: true
+      secure: false
+      endpoint: http://127.0.0.1
+      port: 9000
+      accessKey: minioadmin
+      secretKey: minioadmin
+
+es:
+  host: localhost
+  port: 9200
+  scheme: http
+
+fastConfig:
+  txtSavePath: D:\\picBed\\infoTable\\信息表.txt
+  picSavePath: D:\\picBed\\fast\\
+  resourceHandlerPath: uploadSub
