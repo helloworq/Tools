@@ -8,6 +8,7 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -50,7 +51,12 @@ public class AroundAOP {
             //筛选出外置服务已有数据
             List<Object> listUrl = picIds.stream()
                     .map(ele -> {
-                        String url = picService.get(ele);
+                        String url = null;
+                        try {
+                            url = picService.get(ele);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                         if (Objects.nonNull(url)) {
                             handledPicIds.remove(ele);
                         }
