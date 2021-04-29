@@ -51,11 +51,9 @@ public class CheckDownloadAOP {
         System.out.println(checkDownload.uploadObjectType());
 
 
-
         //获取picId
         Object picId = pjp.proceed();
         String id = picId.toString().trim();
-
 
 
         File file = new File(valueConfig.picSavePath + picId + ".jpg");

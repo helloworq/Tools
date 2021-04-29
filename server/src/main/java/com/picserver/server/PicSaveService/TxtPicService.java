@@ -12,8 +12,9 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
-import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -28,19 +29,21 @@ public class TxtPicService implements PicService<Object, String> {
     @Autowired
     WebTool webTool;
 
-    private List<String> txtLines = null;
+    private Map<String, String> txtLines = null;
 
     @Override
     public String get(Object key) throws IOException {
         //将文件内容提前加载到内存加快处理速度，使用nio api减少第三方库依赖
-
         if (Objects.isNull(this.txtLines)) {
-            this.txtLines = Files.readAllLines(Paths.get(valueConfig.txtSavePath), StandardCharsets.UTF_8);
+            //换用map存储，加快速度
+            this.txtLines = Files.readAllLines(Paths.get(valueConfig.txtSavePath), StandardCharsets.UTF_8)
+                    .stream()
+                    .collect(Collectors.toMap(x -> x.split(">>>")[0], y -> y.split(">>>")[1]));
         }
-        return this.txtLines.stream()
-                .filter(ele -> ele.split(">>>")[0].equals(key.toString().trim()))
-                .map(ele -> webTool.getUrl() + valueConfig.ResourceHandlerPath + "/" + ele.substring(ele.lastIndexOf("\\") + 1))
-                .findFirst().orElse(null);
+
+        String path = this.txtLines.get(key.toString().trim());
+
+        return webTool.getUrl() + valueConfig.ResourceHandlerPath + "/" + path.substring(path.lastIndexOf("\\") + 1);
     }
 
     @Override

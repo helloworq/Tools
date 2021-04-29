@@ -5,10 +5,7 @@ import com.zlutil.tools.toolpackage.JavaBasic.MyIO.RW_File;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class EnumTest {
@@ -21,7 +18,11 @@ public class EnumTest {
      * @param args
      */
     public static void main(String[] args) throws Exception {
-        System.out.println(new EnumTest().result("webapp"));
+        HashMap<String, String> map = new HashMap<>();
+        map.put("sda", "das");
+        for (Map.Entry m:map.entrySet()){
+            m.getKey();
+        }
     }
 
     public String result(String username) throws Exception {

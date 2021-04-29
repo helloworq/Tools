@@ -16,31 +16,28 @@ import java.util.stream.Collectors;
 public class RunnerController {
 
     static String txt =
-            "6083e6275b5bca563eadef59>>>D:\\picBed\\fast\\6083e6275b5bca563eadef59.jpg\n" +
-                    "6083e6275b5bca563eadef61>>>D:\\picBed\\fast\\6083e6275b5bca563eadef61.jpg\n" +
-                    "6083e6275b5bca563eadef67>>>D:\\picBed\\fast\\6083e6275b5bca563eadef67.jpg\n" +
-                    "6083e6275b5bca563eadef69>>>D:\\picBed\\fast\\6083e6275b5bca563eadef69.jpg\n" +
-                    "6083e6275b5bca563eadef75>>>D:\\picBed\\fast\\6083e6275b5bca563eadef75.jpg\n" +
-                    "6083e6275b5bca563eadef7b>>>D:\\picBed\\fast\\6083e6275b5bca563eadef7b.jpg\n" +
-                    "6083e6275b5bca563eadef7e>>>D:\\picBed\\fast\\6083e6275b5bca563eadef7e.jpg\n" +
-                    "6083e6275b5bca563eadef87>>>D:\\picBed\\fast\\6083e6275b5bca563eadef87.jpg\n" +
-                    "6083e6275b5bca563eadef8c>>>D:\\picBed\\fast\\6083e6275b5bca563eadef8c.jpg\n" +
-                    "6083e6285b5bca563eadef91>>>D:\\picBed\\fast\\6083e6285b5bca563eadef91.jpg\n" +
-                    "6083e6285b5bca563eadef97>>>D:\\picBed\\fast\\6083e6285b5bca563eadef97.jpg\n" +
-                    "6083e6285b5bca563eadef9a>>>D:\\picBed\\fast\\6083e6285b5bca563eadef9a.jpg\n" +
-                    "6083e6285b5bca563eadef9f>>>D:\\picBed\\fast\\6083e6285b5bca563eadef9f.jpg\n" +
-                    "6083e6285b5bca563eadefa7>>>D:\\picBed\\fast\\6083e6285b5bca563eadefa7.jpg\n" +
-                    "6083e6285b5bca563eadefae>>>D:\\picBed\\fast\\6083e6285b5bca563eadefae.jpg\n" +
-                    "6083e6285b5bca563eadefb4>>>D:\\picBed\\fast\\6083e6285b5bca563eadefb4.jpg\n" +
-                    "6083e6285b5bca563eadefc3>>>D:\\picBed\\fast\\6083e6285b5bca563eadefc3.jpg\n" +
-                    "6083e6285b5bca563eadefcb>>>D:\\picBed\\fast\\6083e6285b5bca563eadefcb.jpg\n" +
-                    "6083e6295b5bca563eadefd5>>>D:\\picBed\\fast\\6083e6295b5bca563eadefd5.jpg\n" +
-                    "6083e6295b5bca563eadefd8>>>D:\\picBed\\fast\\6083e6295b5bca563eadefd8.jpg\n" +
-                    "6083e6295b5bca563eadefe0>>>D:\\picBed\\fast\\6083e6295b5bca563eadefe0.jpg\n" +
-                    "6083e6295b5bca563eadefe8>>>D:\\picBed\\fast\\6083e6295b5bca563eadefe8.jpg\n" +
-                    "6083e6295b5bca563eadefec>>>D:\\picBed\\fast\\6083e6295b5bca563eadefec.jpg\n" +
-                    "6083e6295b5bca563eadeff3>>>D:\\picBed\\fast\\6083e6295b5bca563eadeff3.jpg\n" +
-                    "6083e6295b5bca563eadeff8>>>D:\\picBed\\fast\\6083e6295b5bca563eadeff8.jpg";
+            "6083f2d749216a4458286b11>>>D:\\picBed\\fast\\6083f2d749216a4458286b11.jpg\n" +
+            "6083f2d749216a4458286b11>>>D:\\picBed\\fast\\6083f2d749216a4458286b11.jpg\n" +
+            "6083f2d749216a4458286b11>>>D:\\picBed\\fast\\6083f2d749216a4458286b11.jpg\n" +
+            "6083f2d749216a4458286b11>>>D:\\picBed\\fast\\6083f2d749216a4458286b11.jpg\n" +
+            "6083f2d749216a4458286b11>>>D:\\picBed\\fast\\6083f2d749216a4458286b11.jpg\n" +
+            "6083f2d749216a4458286b11>>>D:\\picBed\\fast\\6083f2d749216a4458286b11.jpg\n" +
+            "6083f2d749216a4458286b11>>>D:\\picBed\\fast\\6083f2d749216a4458286b11.jpg\n" +
+            "6083f2d749216a4458286b11>>>D:\\picBed\\fast\\6083f2d749216a4458286b11.jpg\n" +
+            "6083f2d749216a4458286b11>>>D:\\picBed\\fast\\6083f2d749216a4458286b11.jpg\n" +
+            "6083f2d749216a4458286b11>>>D:\\picBed\\fast\\6083f2d749216a4458286b11.jpg\n" +
+            "6083f2d749216a4458286b11>>>D:\\picBed\\fast\\6083f2d749216a4458286b11.jpg\n" +
+            "6083f2d749216a4458286b11>>>D:\\picBed\\fast\\6083f2d749216a4458286b11.jpg\n" +
+            "6083f2d749216a4458286b11>>>D:\\picBed\\fast\\6083f2d749216a4458286b11.jpg\n" +
+            "6083f2d749216a4458286b11>>>D:\\picBed\\fast\\6083f2d749216a4458286b11.jpg\n" +
+            "6083f2d749216a4458286b11>>>D:\\picBed\\fast\\6083f2d749216a4458286b11.jpg\n" +
+            "6083f2d749216a4458286b11>>>D:\\picBed\\fast\\6083f2d749216a4458286b11.jpg\n" +
+            "6083f2d749216a4458286b11>>>D:\\picBed\\fast\\6083f2d749216a4458286b11.jpg\n" +
+            "6083f2d749216a4458286b11>>>D:\\picBed\\fast\\6083f2d749216a4458286b11.jpg\n" +
+            "6083f2d749216a4458286b11>>>D:\\picBed\\fast\\6083f2d749216a4458286b11.jpg\n" +
+            "6083f2d749216a4458286b11>>>D:\\picBed\\fast\\6083f2d749216a4458286b11.jpg\n" +
+            "6083f2d749216a4458286b11>>>D:\\picBed\\fast\\6083f2d749216a4458286b11.jpg\n" +
+            "6083f2d749216a4458286b11>>>D:\\picBed\\fast\\6083f2d749216a4458286b11.jpg\n" ;
 
     public static void main(String[] args) {
         List<String> list = Arrays.stream(txt.replace("\n", "").split("jpg"))
@@ -60,7 +57,7 @@ public class RunnerController {
     }
 
     @GetMapping(value = "/getData")
-    public List<String> getData(@RequestParam("picIds") String picIds) throws IOException {
+    public List<String> getData() throws IOException {
 
         List<String> listText = Arrays.stream(txt.replace("\n", "").split("jpg"))
                 .map(e -> e.substring(0, e.indexOf(">>>")))
@@ -76,7 +73,7 @@ public class RunnerController {
     }
 
     @GetMapping(value = "/getData/Fast")
-    public List<String> getDataFast(@RequestParam("picIds") String picIds) throws IOException {
+    public List<String> getDataFast() throws IOException {
 
         List<String> listText = Arrays.stream(txt.replace("\n", "").split("jpg"))
                 .map(e -> e.substring(0, e.indexOf(">>>")))

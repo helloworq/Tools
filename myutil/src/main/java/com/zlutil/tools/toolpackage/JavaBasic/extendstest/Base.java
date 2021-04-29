@@ -23,13 +23,10 @@ public class Base {
         this.mark = mark;
     }
 
-    public String tag;
-    public String mark;
+    private String tag;
+    private String mark;
 
     public void printMsg() {
         System.out.println(("This is Base"));
     }
-}
-class T<U>{
-
 }
