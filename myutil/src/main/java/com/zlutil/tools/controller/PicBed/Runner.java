@@ -105,7 +105,6 @@ public class Runner {
             String path = fileDownload.getPath();
             return "http://localhost:8888/upload/" + path.substring(path.lastIndexOf("\\") + 1);
         }).collect(Collectors.toList());
-
     }
 
     public String picId2Url(String picId) {

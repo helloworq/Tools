@@ -27,6 +27,6 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/upload/**")
-                .addResourceLocations("file:D:\\picBed\\fast\\");
+                .addResourceLocations("file:D:\\picBed\\Sync\\Pic\\");
     }
 }

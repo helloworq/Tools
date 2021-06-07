@@ -8,69 +8,104 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+
 import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
 
 
-public class simpleClient {
-    public String getTranslationInfo(String param){
-        String contents=null;
+public class SimpleClient {
+
+    public static void main(String[] args) throws Exception {
+        List<String> list = Files.readAllLines(Paths.get("C:\\Users\\12733\\Desktop\\s.txt"));
+        int flag = 100;
+
+
+
+//        while (flag != 0) {
+//            int a = RandomUtils.nextInt(0, list.size());
+//
+//            try {
+//                System.out.println(a+"   ");
+//                URI uri = new URIBuilder("http://localhost:8888/pic/speed")
+//                        .setParameter("md5", list.get(a))
+//                        .build();
+//                HttpClient httpClient = HttpClients.createDefault();
+//                HttpGet httpGet = new HttpGet(uri);
+//                httpGet.setHeader("User-Agent", DownLoad_My_Configs.httpGet_Header);
+//                httpClient.execute(httpGet);
+//            } catch (Exception e1) {
+//                e1.printStackTrace();
+//            }
+//            flag--;
+//        }
+    }
+
+    public String getTranslationInfo(String param) {
+        String contents = null;
         try {
             // 多参数情况必须自定义请求的参数
             URI uri = new URIBuilder("http://api.microsofttranslator.com/V2/Ajax.svc/Translate")
                     .setParameter("appId", "A4D660A48A6A97CCA791C34935E4C02BBB1BEC1C")
-                    .setParameter("from","")
-                    .setParameter("to","zh-cn")
-                    .setParameter("text",param).build();
+                    .setParameter("from", "")
+                    .setParameter("to", "zh-cn")
+                    .setParameter("text", param).build();
             HttpClient httpClient = HttpClients.createDefault();
             HttpGet httpGet = new HttpGet(uri);
             httpGet.setHeader("User-Agent", DownLoad_My_Configs.httpGet_Header);
             HttpResponse response = httpClient.execute(httpGet);
             contents = EntityUtils.toString(response.getEntity(), "utf-8");//utf-8
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return contents;
-    }
-    public static String sendPost(String URL){
-        String contents=null;
-        try {
-            HttpClient httpClient = HttpClients.createDefault();
-            HttpPost httpPost = new HttpPost(URL);
-            httpPost.setHeader("User-Agent", DownLoad_My_Configs.httpGet_Header);
-            HttpResponse response = httpClient.execute(httpPost);
-            contents = EntityUtils.toString(response.getEntity(), "utf-8");//utf-8
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return contents;
-    }
-    public static String sendGet(String URL){
-        String contents=null;
-        try {
-            HttpClient httpClient = HttpClients.createDefault();
-            HttpGet httpGet = new HttpGet(URL);
-            httpGet.addHeader("User-Agent", DownLoad_My_Configs.httpGet_Header);
-            httpGet.addHeader("","");
-            HttpResponse response = httpClient.execute(httpGet);
-            contents = EntityUtils.toString(response.getEntity(), "utf-8");//utf-8
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return contents;
     }
 
-    public String sendGet(URI URL){
-        String contents=null;
+    public String sendPost(URI URL) {
+        String contents = null;
+        try {
+            HttpClient httpClient = HttpClients.createDefault();
+            HttpPost httpPost = new HttpPost(URL);
+            httpPost.addHeader("User-Agent", DownLoad_My_Configs.httpGet_Header);
+            httpPost.setHeader("Content-Type", "application/json; charset=utf-8");
+            httpPost.setHeader("Vary", "Accept-Encoding");
+            httpPost.setHeader("User-Agent", DownLoad_My_Configs.httpGet_Header);
+            HttpResponse response = httpClient.execute(httpPost);
+            contents = EntityUtils.toString(response.getEntity(), "utf-8");//utf-8
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return contents;
+    }
+
+    public static String sendGet(String URL) {
+        String contents = null;
         try {
             HttpClient httpClient = HttpClients.createDefault();
             HttpGet httpGet = new HttpGet(URL);
             httpGet.addHeader("User-Agent", DownLoad_My_Configs.httpGet_Header);
-            httpGet.setHeader("Content-Type","application/json; charset=utf-8");
-            httpGet.setHeader("Vary","Accept-Encoding");
+            httpGet.addHeader("", "");
+            HttpResponse response = httpClient.execute(httpGet);
+            contents = EntityUtils.toString(response.getEntity(), "utf-8");//utf-8
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return contents;
+    }
+
+    public String sendGet(URI URL) {
+        String contents = null;
+        try {
+            HttpClient httpClient = HttpClients.createDefault();
+            HttpGet httpGet = new HttpGet(URL);
+            httpGet.addHeader("User-Agent", DownLoad_My_Configs.httpGet_Header);
+            httpGet.setHeader("Content-Type", "application/json; charset=utf-8");
+            httpGet.setHeader("Vary", "Accept-Encoding");
             HttpResponse response = httpClient.execute(httpGet);
             contents = EntityUtils.toString(response.getEntity(), "GBK");//utf-8
-            contents=JSON.parseObject(contents).toJSONString();
-        }catch (Exception e){
+            contents = JSON.parseObject(contents).toJSONString();
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return contents;

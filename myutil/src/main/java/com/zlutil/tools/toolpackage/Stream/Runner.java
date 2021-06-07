@@ -1,10 +1,6 @@
 package com.zlutil.tools.toolpackage.Stream;
 
-import java.net.Socket;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -26,7 +22,18 @@ public class Runner {
                 .map(String::valueOf)
                 .collect(Collectors.toMap(String::toString, Function.identity(), (a, b) -> a));
 
-        Socket s=new Socket();
+        //flatMap(扁平化Map) 用法: flatMap会返回一个流，处理时会将入参拆开，然后如果处理时传了一个多流参数则会一对多处理如2所示
+        List<String> list = new ArrayList<>(Arrays.asList("dasdas", "Dasdasds"));
+        list.stream()
+                .map(word -> word.split(""))
+                .flatMap(e -> Stream.of(e))
+                .forEach(System.out::println);
+        //2
+        List<Integer> list1 = new ArrayList<>(Arrays.asList(1, 2, 3));
+        List<Integer> list2 = new ArrayList<>(Arrays.asList(4, 5));
+        list1.stream().flatMap(e -> list2.stream().map(ele -> "(" + e + "-" + ele + ")")).forEach(System.out::println);
 
+        //统计字符出现次数
+        Map map = doubleList.stream().collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
     }
 }

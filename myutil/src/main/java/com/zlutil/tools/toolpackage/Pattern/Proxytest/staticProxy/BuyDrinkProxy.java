@@ -1,4 +1,7 @@
-package com.zlutil.tools.toolpackage.Pattern.Proxytest;
+package com.zlutil.tools.toolpackage.Pattern.Proxytest.staticProxy;
+
+import com.zlutil.tools.toolpackage.Pattern.Proxytest.BuyDrink;
+import com.zlutil.tools.toolpackage.Pattern.Proxytest.BuySomething;
 
 public class BuyDrinkProxy implements BuySomething {
     private BuyDrink buyDrink;

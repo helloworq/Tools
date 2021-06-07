@@ -9,7 +9,7 @@ import java.net.URL;
  */
 public class Download_pic {
     //链接url下载图片
-    static void downloadPicture(String urlList, String path) {
+    public static void downloadPicture(String urlList, String path) {
         URL url = null;
         try {
             url = new URL(urlList);

@@ -13,9 +13,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * @desc: 经纪人切面
- * @author: CSH
- **/
+ * 处理图片读取
+ */
 @Aspect
 @Component
 public class AroundAOP {

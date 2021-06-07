@@ -1,39 +1,39 @@
 package com.zlutil.tools.controller;
 
-import cn.hutool.core.lang.UUID;
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.zlutil.tools.controller.PicBed.Runner;
 import com.zlutil.tools.toolpackage.Feign.ImsRestConfig;
 import com.zlutil.tools.toolpackage.JavaBasic.MyIO.MyIOUtil;
 import com.zlutil.tools.toolpackage.JavaBasic.NetTools.DownLoad_My_Configs;
 import com.zlutil.tools.toolpackage.ResponseUtil.ResponseData;
 import com.zlutil.tools.toolpackage.ResponseUtil.ResponseUtil;
-import com.zlutil.tools.toolpackage.ZipReader.FileEntity;
+import com.zlutil.tools.toolpackage.SycFile.PicUtil;
 import com.zlutil.tools.toolpackage.aop.StrogeService;
+import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClients;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.index.Index;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -69,6 +69,51 @@ public class GetData {
     @Value("${self.enable}")
     private boolean open = false;
 
+//    @NacosValue(value = "${es.host}", autoRefreshed = true)
+//    private String useLocalCache;
+
+    @Autowired
+    MongoTemplate mongoTemplate;
+
+    @ApiOperation(value = "批量保存日志原始")
+    @PostMapping(value = "public/v1/log/batch/origin")
+    public ResponseData SaveLog(@ApiParam(value = "日志参数说明请查看接口public/v1/log/parameter") @RequestBody Object logParams) throws Exception {
+
+        JSONArray jsonArray = JSONObject.parseObject(JSON.toJSON(logParams).toString()).getJSONArray("logParams");
+        List<Map<String, String>> logParamsResolve = JSON.toJavaObject(jsonArray, List.class);
+
+        for (Map<String, String> logParam : logParamsResolve) {
+            System.out.println(logParam);
+            System.out.println(JSON.toJSONString(logParam));
+        }
+        return ResponseUtil.success(logParams);
+    }
+
+    @ApiOperation(value = "批量保存日志")
+    @PostMapping(value = "public/v1/log/batch")
+    public ResponseData SaveLog(@ApiParam(value = "日志参数说明请查看接口public/v1/log/parameter") @RequestParam("logParams") String logParams) throws Exception {
+
+        String unescapeString = StringEscapeUtils.unescapeJava(logParams);
+        JSONArray jsonArray = JSONObject.parseArray(unescapeString);
+        List<Map<String, String>> logParamsResolve = JSON.toJavaObject(jsonArray, List.class);
+
+        for (Map<String, String> logParam : logParamsResolve) {
+            System.out.println(logParam);
+            System.out.println(JSON.toJSONString(logParam));
+        }
+        return ResponseUtil.success(logParamsResolve);
+    }
+
+    @GetMapping("/createIndex")
+    public void createIndex() {
+        String collectionName = "threadSafeTest";
+
+        Index index = new Index();
+        index.on("filePath", Sort.Direction.ASC);
+        //index.on("fileName", Sort.Direction.ASC);
+        mongoTemplate.indexOps(collectionName).ensureIndex(index);
+    }
+
     @GetMapping("/getFileListUnderShareFolder")
     public ResponseData getFileListUnderShareFolder() {
         File file = new File(shareFolder);
@@ -89,73 +134,21 @@ public class GetData {
         return "success";
     }
 
+    @Autowired
+    PicUtil picUtil;
+
+    @GetMapping(value = "/pic/speed", consumes = MediaType.ALL_VALUE)
+    public String speed() throws IOException {
+        //picId转Url
+        picUtil.getPicUrl();
+        return "success";
+    }
+
     @GetMapping(value = "/getData", consumes = MediaType.ALL_VALUE)
     public List<String> getData(@RequestParam("id") String picIds) throws IOException {
         //picId转Url
         return strogeService.createUrlByPicId(new ArrayList<>(Arrays.asList(picIds.split(","))));
     }
-
-    FileEntity readZipInfo(String filePath) {
-
-        String id = UUID.randomUUID().toString().replace("-", "");
-        FileEntity fileEntityParent = new FileEntity();
-        fileEntityParent.setId(id);
-        fileEntityParent.setFilePath(removePrefix(filePath));
-        fileEntityParent.setFileName(filePath);
-        fileEntityParent.setParentCode(null);
-        List<FileEntity> listRes = new ArrayList<>();
-        fileEntityParent.setChild(listRes);
-
-        readFile(filePath, fileEntityParent, id);
-
-        return fileEntityParent;
-    }
-
-    void readFile(String filePath, FileEntity fileEntityParent, String parentCode) {
-
-        File[] file = new File(filePath).listFiles();
-
-        for (File filePrev : file) {
-            if (filePrev.isFile()) {
-                FileEntity fileEntityChild = new FileEntity();
-                fileEntityChild.setId(UUID.randomUUID().toString().replace("-", ""));
-                fileEntityChild.setFilePath(removePrefix(filePrev.getPath()));
-                fileEntityChild.setFileName(filePrev.getName());
-                fileEntityChild.setParentCode(parentCode);
-
-                fileEntityParent.getChild().add(fileEntityChild);
-            } else if (filePrev.isDirectory()) {
-                String id = UUID.randomUUID().toString().replace("-", "");
-                FileEntity fileEntityChild = new FileEntity();
-                fileEntityChild.setId(id);
-                fileEntityChild.setFilePath(removePrefix(filePrev.getPath()));
-                fileEntityChild.setFileName(filePrev.getName());
-                fileEntityChild.setParentCode(parentCode);
-                List<FileEntity> listPrev = new ArrayList<>();
-                fileEntityChild.setChild(listPrev);
-
-                fileEntityParent.getChild().add(fileEntityChild);
-                readFile(filePrev.getPath(), fileEntityChild, id);
-            }
-        }
-    }
-
-    public String getFilename(String filename) {
-        return filename.substring(0, filename.indexOf(".") + 1);
-    }
-
-    public String removePrefix(String filename) {
-        return filename.replace(unzipPath, "");
-    }
-
-//    @ApiOperation(value = "更新/上传动态")
-//    @PostMapping(value = "/fileUploader")
-//    public ResponseData fileUploader(@RequestParam(value = "file") MultipartFile file,
-//                                     HttpServletRequest request) throws IOException {
-//        FileOutputStream fileOutputStream = new FileOutputStream(new File("C:\\Users\\12733\\Desktop\\a"));
-//        MyIOUtil.inputStreamWriteToOutputStream(file.getInputStream(), fileOutputStream);
-//        return ResponseUtil.success("success");
-//    }
 
     /**
      * 处理上传文件

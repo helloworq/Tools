@@ -9,6 +9,8 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -44,6 +46,7 @@ public class PatrolController {
         return ResponseUtil.success(yieldService.submitUnableHandleTask(null, taskId, false));
     }
 
+    @Transactional(propagation = Propagation.NESTED)
     @GetMapping("v1/getUnhandleSubordinateUploadTask")
     @ApiOperation(value = "上级拉取未处理的所管下级提交上来的任务")
     public ResponseData getUnhandleSubordinateUploadTask(@RequestParam @ApiParam(value = "用户ID") String userId) {

@@ -1,35 +1,16 @@
 package com.zlutil.tools.toolpackage.leetcode;
 
 
+import net.coobird.thumbnailator.Thumbnails;
+
+import java.io.IOException;
 import java.util.*;
 
 public class test {
-    public static void main(String[] args) {
-        List<String> a = new ArrayList<>();
-        a.add("1");
-        a.add("2");
-        a.add("3");
-        a.add("4");
-        a.add("5");
-
-        List<String> b = new ArrayList<>();
-        b.add("3");
-        b.add("4");
-        b.add("5");
-        b.add("6");
-        b.add("7");
-
-        List<String> res = new ArrayList<>();
-
-
-        res.addAll(a);
-
-        for (String s : b) {
-            if (a.contains(s)) {
-                res.remove(s);
-            }
-        }
-
+    public static void main(String[] args) throws IOException {
+        Thumbnails.of("C:\\Users\\12733\\Desktop\\02+市域高程分析图.jpg")
+                .scale(0.1f)
+                .toFile("C:\\Users\\12733\\Desktop\\03+市域高程分析图.jpg");
 
         String file = "abcdecfg";
         //System.out.println(file.lastIndexOf("c"));
@@ -41,8 +22,7 @@ public class test {
         Long aaa = 1L;
         //System.out.println("===>"+Long.valueOf(aaa));
 
-        List<String> list = new ArrayList<>(Arrays.asList(
-                new String[]{"abcde3331", "bcdef1116", "cdefg222"}));
+        List<String> list = new ArrayList<>(Arrays.asList("abcde3331", "bcdef1116", "cdefg222"));
 
         getSameStringBetween("cdeffg2221t2", "bcdeff1116t2");
     }

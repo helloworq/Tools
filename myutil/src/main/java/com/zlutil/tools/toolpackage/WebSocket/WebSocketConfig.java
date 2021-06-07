@@ -20,6 +20,7 @@ public class WebSocketConfig {
     @Bean
     public ServerEndpointExporter serverEndpointExporter() {
         System.out.println("WebSocket被注入了");
-        return new ServerEndpointExporter();
+        //return new ServerEndpointExporter();
+        return null;
     }
 }

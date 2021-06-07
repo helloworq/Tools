@@ -1,5 +1,8 @@
 package com.zlutil.tools.toolpackage.Pattern.Proxytest;
 
+import com.zlutil.tools.toolpackage.Pattern.Proxytest.dynamicProxy.ProxyHandller;
+import com.zlutil.tools.toolpackage.Pattern.Proxytest.staticProxy.BuyDrinkProxy;
+
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
 

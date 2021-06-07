@@ -8,5 +8,16 @@ self:
   shareFolder: "file:E:\\迅雷下载\\ShareFolder\\"
   enable: true
 
+#nacos:
+#  config:
+#    server-addr: 127.0.0.1:8848
+#    data-id: tool-config
+#    type: yaml
+#    auto-refresh: true
+#    bootstrap:
+#      enable: true
+#      log:
+#        enable: true
+
 
 
