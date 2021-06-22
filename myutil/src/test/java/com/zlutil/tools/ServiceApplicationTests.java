@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.gridfs.GridFsTemplate;
+import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -50,25 +51,11 @@ public class ServiceApplicationTests {
     @Autowired
     PicService picService;
 
+    @Autowired
+    RestTemplate restTemplate;
+
     @Test
     void testConvent() throws IOException {
-
-
-//        String md5=DigestUtils.md5Hex(Files.readAllBytes(Paths.get("C:\\Users\\12733\\Desktop\\1.jpg")));
-//        ObjectId id = gridFsTemplate.store(
-//                Files.newInputStream(Paths.get("C:\\Users\\12733\\Desktop\\1.jpg")),
-//                md5,
-//                "jpg"
-//        );
-//        System.out.println(md5);
-
-//        GridFSFile fsFile=gridFsTemplate.findOne(Query.query(Criteria.where("filename").is("26414a334efad8e5e3b88cfd461380fc")));
-//        gridFSBucket.downloadToStream(
-//                "26414a334efad8e5e3b88cfd461380fc",
-//                Files.newOutputStream(
-//                        Paths.get("C:\\Users\\12733\\Desktop\\2.jpg"), StandardOpenOption.CREATE_NEW)
-//        );
-//        System.out.println(fsFile.getMetadata().get("_contentType"));
     }
 
     @Test

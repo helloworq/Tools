@@ -1,0 +1,11 @@
+spring:
+  data:
+    mongodb:
+      database: dist
+      host: 127.0.0.1
+      port: 27017
+      repositories:
+        enabled: true
+
+txtconfig:
+  savepath: D:\\picBed\\infoTable\\–≈œ¢±Ì.txt

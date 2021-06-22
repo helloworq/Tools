@@ -3,8 +3,7 @@ package com.zlutil.tools.controller.PicBed;
 import cn.hutool.core.io.FileUtil;
 import com.alibaba.fastjson.JSON;
 import com.mongodb.client.gridfs.GridFSBucket;
-import com.picserver.server.Annotation.CheckDownload;
-import com.picserver.server.Annotation.Img2UrlSpeedUp;
+import com.zlutil.tools.Share.Img2UrlSpeedUp;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +49,6 @@ public class Runner {
         System.out.println(file.getPath());
     }
 
-    @CheckDownload(uploadObjectType = "MultipartFile", argPosition = 0)
     public String uploadFile(MultipartFile file) {
         String path = null;
         try {

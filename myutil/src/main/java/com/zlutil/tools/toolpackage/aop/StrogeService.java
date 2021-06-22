@@ -1,6 +1,6 @@
 package com.zlutil.tools.toolpackage.aop;
 
-import com.picserver.server.Annotation.Img2UrlSpeedUp;
+import com.zlutil.tools.Share.Img2UrlSpeedUp;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

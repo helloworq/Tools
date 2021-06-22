@@ -1,10 +1,10 @@
-#oracleÅäÖÃĞÅÏ¢
+#oracleï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 server.servlet.context-path=/
 spring.datasource.url=jdbc:oracle:thin:@127.0.0.1/ORCL
 spring.datasource.username=DIST
 spring.datasource.password=12345678
 spring.datasource.driver-class-name=oracle.jdbc.driver.OracleDriver
-#spring data jpaÅäÖÃĞÅÏ¢
+#spring data jpaï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 spring.jpa.database=oracle
 spring.jpa.show-sql=true
 spring.jpa.hibernate.ddl-auto=update
@@ -19,19 +19,19 @@ spring.redis.jedis.pool.max-idle=8
 spring.redis.jedis.pool.max-wait=-1
 spring.redis.jedis.pool.min-idle=0
 spring.redis.timeout=10000
-#dubboÅäÖÃ
-dubbo.application.name=user-service-provider
-#×¢²áÖĞĞÄµØÖ·
+#dubboï¿½ï¿½ï¿½ï¿½
+dubbo.application.name=userEntity-service-provider
+#×¢ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½Ö·
 dubbo.registry.address=127.0.0.1:2181
-#×¢½âÉ¨ÃèµØÖ·
+#×¢ï¿½ï¿½É¨ï¿½ï¿½ï¿½Ö·
 dubbo.scan.base-packages=com.transform.service
-#×¢²áÖĞĞÄĞ­Òé
+#×¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ­ï¿½ï¿½
 dubbo.registry.protocol=zookeeper
-#Ğ­ÒéÃû
+#Ğ­ï¿½ï¿½ï¿½ï¿½
 dubbo.protocol.name=dubbo
-#Ğ­ÒéÍ¨ĞÅµØÖ·
+#Ğ­ï¿½ï¿½Í¨ï¿½Åµï¿½Ö·
 dubbo.protocol.port=20881
-#¼à¿ØÆ÷Ğ­Òé
+#ï¿½ï¿½ï¿½ï¿½ï¿½Ğ­ï¿½ï¿½
 dubbo.monitor.protocol=registry
 
-#ÈÕÖ¾ÅäÖÃ
+#ï¿½ï¿½Ö¾ï¿½ï¿½ï¿½ï¿½

@@ -2,6 +2,7 @@ package com.zlutil.tools;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -11,7 +12,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableScheduling
 @EnableSwagger2
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.picserver.*","com.zlutil.tools.*"})//扫描图片服务注解
+@ComponentScan(basePackages = {"com.zlutil.tools.*"})//扫描图片服务注解
+@EntityScan(basePackages = {"com.zlutil.tools.*"})
 //@NacosPropertySource(dataId = "tool-config", autoRefreshed = true)
 public class ToolsApplication {
 
