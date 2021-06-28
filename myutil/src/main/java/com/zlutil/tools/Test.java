@@ -9,6 +9,10 @@ public class Test {
     }
 
     public static void main(String[] args) throws IOException {
+        String fileName="产品目录导入模板20210430.xlsx";
 
+        if (!fileName.matches("^.+\\.(?i)(xls)$") && !fileName.matches("^.+\\.(?i)(xlsx)$")) {
+            System.out.println("上传文件格式不正确");
+        }
     }
 }

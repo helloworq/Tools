@@ -50,7 +50,7 @@ public class TestSpeed {
     public void second(@RequestParam("file") MultipartFile file) throws IOException {
         picUtil.save(file);
     }
-
+    
     @ApiOperation("同步文件")
     @GetMapping("sync")
     public void secondArray(@RequestParam("remoteAddress") String addres) throws IOException, URISyntaxException {
